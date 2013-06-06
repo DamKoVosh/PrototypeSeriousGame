@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -6,45 +6,41 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.GUIContext;
 
-public class BasicEntity extends AbstractComponent{
+public class BasicEntity{
 	int x, y, width, height;
 	Image image;
+	String name;
 	
-	public BasicEntity(GUIContext container, Image image, int x, int y) {
-		super(container);	
+	public BasicEntity(String name, Image image, int x, int y, float rotation) {	
 		this.x = x;
 		this.y = y;
+		this.name = name;
 		this.image = image;	
 		this.width = image.getWidth();
 		this.height = image.getHeight();
+		image.setRotation(rotation);
 	}
 
-	@Override
 	public int getHeight() {
 		return height;
 	}
-
-	@Override
+	
 	public int getWidth() {
 		return width;
 	}
 
-	@Override
 	public int getX() {
 		return x;
 	}
 
-	@Override
 	public int getY() {
 		return y;
 	}
 
-	@Override
 	public void render(GUIContext c, Graphics g) throws SlickException {
 			g.drawImage(image, x, y);
 	}
 
-	@Override
 	public void setLocation(int x, int y) {
 		this.x = x;
 		this.y = y;		
