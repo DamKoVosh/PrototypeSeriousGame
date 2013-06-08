@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
 public class EntityHandler {
-	ArrayList<BasicEntity> entitys;
+	private ArrayList<BasicEntity> entitys;
 	
 	public EntityHandler(GUIContext container) {
 		entitys = new ArrayList<>();
@@ -36,5 +36,16 @@ public class EntityHandler {
 		for (int i = 0; i < entitys.size(); i++) {
 			entitys.get(i).render(container, graphics);
 		}
+	}
+
+	public Object getEntity(int x, int y) {
+		BasicEntity entity = null;
+		for (int i = 0; i < entitys.size(); i++) {
+			if (entitys.get(i).checkForCollission(x, y)) {
+				entity = entitys.get(i);
+				break;
+			}
+		}
+		return entity;
 	}
 }

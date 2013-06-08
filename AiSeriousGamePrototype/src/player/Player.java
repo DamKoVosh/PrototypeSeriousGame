@@ -6,13 +6,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Player {
-	Image image;
-	boolean left, right, up, down;
-	int lastDirection;
-	int spritePos;
-	int x, y;
-	long lastSpriteUpdate;
-	long lastMoveUpdate;
+	private Image image;
+	private boolean left, right, up, down;
+	private int lastDirection;
+	private int spritePos;
+	private int x, y;
+	private long lastSpriteUpdate;
+	private long lastMoveUpdate;
 	
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
@@ -53,20 +53,20 @@ public class Player {
 	}
 	
 	public void setDirection(int direction) {
-		if (direction == LEFT) {
+		if (direction == LEFT && !left) {
 			spritePos = 0;
 			left = true;
 			right = false;
 			lastDirection = LEFT;
-		} else if (direction == RIGHT) {
+		} else if (direction == RIGHT && ! right) {
 			spritePos = 0;
 			right = true;
 			left = false;
 			lastDirection = RIGHT;
-		} else if (direction == UP) {
+		} else if (direction == UP && !up) {
 			up = true;
 			down = false;
-		} else if (direction == DOWN) {
+		} else if (direction == DOWN && !down) {
 			down = true;
 			up = false;
 		}
@@ -114,5 +114,29 @@ public class Player {
 				}
 			}
 		}
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getWidth() {
+		return 52;
+	}
+	
+	public int getHeight() {
+		return 75;
+	}
+	
+	public int getFootX() {
+		return this.getX() + this.getWidth() / 2;
+	}
+	
+	public int getFootY() {
+		return this.getY() + this.getHeight();
 	}
 }

@@ -1,4 +1,6 @@
 package main;
+import navigation.NavigationManager;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -13,20 +15,20 @@ import entity.EntityHandler;
 
 
 public class Prototype extends BasicGame{
-	Image background;
-	EntityHandler entitys;
-	Player player;
+	private Image background;
+	private EntityHandler entitys;
+	private Player player;
+	private NavigationManager navigationManager;
 	
 	public Prototype(String title) {
 		super(title);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer container = new AppGameContainer (new Prototype("Board Game Designer"));
         container.setDisplayMode(1280, 720, false);
         container.setClearEachFrame(true);
-        container.setMinimumLogicUpdateInterval(20);
+        container.setMinimumLogicUpdateInterval(15);
         container.start();
 	}
 
@@ -35,18 +37,21 @@ public class Prototype extends BasicGame{
 		graphics.drawImage(background, 0, 0);
 		entitys.render(container, graphics);
 		player.render(container, graphics);
+		navigationManager.rendermesh(graphics);
 	}
 
 	@Override
 	public void init(GameContainer c) throws SlickException {
 		background = new Image("img/background.jpg");
 		entitys = new EntityHandler(c);
+		navigationManager = new NavigationManager(entitys, 1280, 720);
 		
 		player = new Player (600, 300);
 	}
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
+		navigationManager.update();
 		player.update();
 	}
 	
@@ -88,6 +93,7 @@ public class Prototype extends BasicGame{
 	
 	@Override
 	public void mouseClicked(int button, int x, int y, int count) {
-		
+		if (button == 0)
+			navigationManager.addMovement(player, x, y);
 	}
 }
