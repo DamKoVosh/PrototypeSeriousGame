@@ -10,7 +10,9 @@ import org.newdawn.slick.SlickException;
 
 import player.Player;
 
+import entity.BasicEntity;
 import entity.EntityHandler;
+import events.Event;
 
 
 
@@ -93,7 +95,13 @@ public class Prototype extends BasicGame{
 	
 	@Override
 	public void mouseClicked(int button, int x, int y, int count) {
-		if (button == 0)
-			navigationManager.addMovement(player, x, y);
+		if (button == 0) {
+			Event event = null;
+			BasicEntity entity = entitys.getEntity(x, y);
+			if (entity != null) {
+				event = entity.getEvent();
+			}
+			navigationManager.addMovement(player, event, x, y);
+		}
 	}
 }

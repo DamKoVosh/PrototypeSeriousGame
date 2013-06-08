@@ -5,21 +5,31 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
+import events.Event;
+
 import player.Player;
 
 public class BasicEntity{
 	private int x, y, width, height;
 	private Image image;
 	private String name;
+	private Event event;
 	
-	public BasicEntity(String name, Image image, int x, int y, float rotation) {	
+	public BasicEntity(String name, Image image, Event event, int x, int y, float rotation) {	
 		this.x = x;
 		this.y = y;
 		this.name = name;
+		this.event = event;
+		this.event.setEntity(this);
+		
 		this.image = image;	
 		this.width = image.getWidth();
 		this.height = image.getHeight();
 		image.setRotation(rotation);
+	}
+	
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	public int getHeight() {
@@ -28,6 +38,10 @@ public class BasicEntity{
 	
 	public int getWidth() {
 		return width;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	public int getX() {
@@ -66,5 +80,9 @@ public class BasicEntity{
 			return true;
 		}
 		return false;
+	}
+
+	public Event getEvent() {
+		return event;
 	}
 }

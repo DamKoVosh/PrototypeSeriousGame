@@ -8,6 +8,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
+import events.HouseEvent;
+
 public class EntityHandler {
 	private ArrayList<BasicEntity> entitys;
 	
@@ -18,14 +20,14 @@ public class EntityHandler {
 	
 	private void addEntitys(GUIContext container) {
 		try {
-			this.entitys.add(new BasicEntity("house1", new Image("img/house.png"), 150, 270, 0));
-			this.entitys.add(new BasicEntity("house2", new Image("img/house.png"), 320, 80, 0));
-			this.entitys.add(new BasicEntity("house3", new Image("img/house.png"), 550, 30, 0));
-			this.entitys.add(new BasicEntity("house4", new Image("img/house.png"), 550, 500, 0));
-			this.entitys.add(new BasicEntity("house5", new Image("img/house.png"), 320, 450, 0));
-			this.entitys.add(new BasicEntity("house6", new Image("img/house.png"), 780, 80, 0));
-			this.entitys.add(new BasicEntity("house7", new Image("img/house.png"), 950, 270, 0));
-			this.entitys.add(new BasicEntity("house8", new Image("img/house.png"), 780, 450, 0));
+			this.entitys.add(new BasicEntity("house1", new Image("img/house.png"), new HouseEvent(), 150, 270, 0));
+			this.entitys.add(new BasicEntity("house2", new Image("img/house.png"), new HouseEvent(), 320, 80, 0));
+			this.entitys.add(new BasicEntity("house3", new Image("img/house.png"), new HouseEvent(), 550, 30, 0));
+			this.entitys.add(new BasicEntity("house4", new Image("img/house.png"), new HouseEvent(), 550, 500, 0));
+			this.entitys.add(new BasicEntity("house5", new Image("img/house.png"), new HouseEvent(), 320, 450, 0));
+			this.entitys.add(new BasicEntity("house6", new Image("img/house.png"), new HouseEvent(), 780, 80, 0));
+			this.entitys.add(new BasicEntity("house7", new Image("img/house.png"), new HouseEvent(), 950, 270, 0));
+			this.entitys.add(new BasicEntity("house8", new Image("img/house.png"), new HouseEvent(), 780, 450, 0));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -38,7 +40,7 @@ public class EntityHandler {
 		}
 	}
 
-	public Object getEntity(int x, int y) {
+	public BasicEntity getEntity(int x, int y) {
 		BasicEntity entity = null;
 		for (int i = 0; i < entitys.size(); i++) {
 			if (entitys.get(i).checkForCollission(x, y)) {

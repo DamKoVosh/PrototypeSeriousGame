@@ -6,6 +6,7 @@ import org.lwjgl.util.Point;
 import org.newdawn.slick.Graphics;
 
 import entity.EntityHandler;
+import events.Event;
 import player.Player;
 
 public class NavigationManager {
@@ -13,6 +14,7 @@ public class NavigationManager {
 	private ArrayList<ArrayList<Boolean>> navMesh;
 	private int mapWidth, mapHeight;
 	private ArrayList<Player> playerList;
+	private ArrayList<Event> playerEvents;
 	private ArrayList<ArrayList<Point>> playerPathes;
 	private final int GRID_SIZE = 20;
 	
@@ -23,17 +25,20 @@ public class NavigationManager {
 		this.mapHeight = mapHeight;
 		this.playerList = new ArrayList<>();
 		this.playerPathes = new ArrayList<>();
+		this.playerEvents = new ArrayList<>();
 		
 		createNavMesh();
 	}
 	
-	public void addMovement(Player player, int x, int y) {
+	public void addMovement(Player player, Event event, int x, int y) {
 		ArrayList<Point> path = findPath(new Point(player.getFootX() / GRID_SIZE, player.getFootY() / GRID_SIZE), new Point (x / GRID_SIZE, y / GRID_SIZE));
 		if (this.playerList.indexOf(player) != -1) {
 			this.playerPathes.set(this.playerList.indexOf(player), path);
+			this.playerEvents.set(this.playerList.indexOf(player), event);
 		} else if (path.size() > 1) {
 			this.playerList.add(player);
 			this.playerPathes.add(path);
+			this.playerEvents.add(event);
 		}
 	}
 	
@@ -47,8 +52,14 @@ public class NavigationManager {
 
 				
 				if (this.playerPathes.get(i).isEmpty()) {
+					
+					if (this.playerEvents.get(i) != null) {
+						this.playerEvents.get(i).activateEvent(this.playerList.get(i));
+					}
 					this.playerList.remove(i);
 					this.playerPathes.remove(i);
+					this.playerEvents.remove(i);
+					
 					
 					player.releaseDirection(Player.RIGHT);
 					player.releaseDirection(Player.LEFT);
