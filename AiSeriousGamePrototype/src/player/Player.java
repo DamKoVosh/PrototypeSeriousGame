@@ -5,7 +5,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Player {
+import drawObject.DrawAbleObject;
+import drawObject.DrawManager;
+
+public class Player extends DrawAbleObject{
 	private Image image;
 	private boolean left, right, up, down;
 	private int lastDirection;
@@ -20,6 +23,7 @@ public class Player {
 	public static final int DOWN = 3;
 	
 	public Player(int x, int y) {
+		super(y + 75);
 		try {
 			this.image = new Image("img/player.png");
 		} catch (SlickException e) {
@@ -113,6 +117,8 @@ public class Player {
 					spritePos = 0;
 				}
 			}
+			this.setZBuffer(getFootY());
+			DrawManager.getInstanceOf().ChangeZBuffer(this);
 		}
 	}
 	

@@ -1,21 +1,25 @@
 package entity;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.GUIContext;
+
+import drawObject.DrawAbleObject;
 
 import events.Event;
 
 import player.Player;
 
-public class BasicEntity{
+public class BasicEntity extends DrawAbleObject{
 	private int x, y, width, height;
 	private Image image;
 	private String name;
 	private Event event;
 	
 	public BasicEntity(String name, Image image, Event event, int x, int y, float rotation) {	
+		super(y + image.getHeight() / 2);
+		System.out.println(this.getZBuffer());
 		this.x = x;
 		this.y = y;
 		this.name = name;
@@ -51,11 +55,7 @@ public class BasicEntity{
 	public int getY() {
 		return y;
 	}
-
-	public void render(GUIContext c, Graphics g) throws SlickException {
-			g.drawImage(image, x, y);
-	}
-
+	
 	public void setLocation(int x, int y) {
 		this.x = x;
 		this.y = y;		
@@ -84,5 +84,11 @@ public class BasicEntity{
 
 	public Event getEvent() {
 		return event;
+	}
+
+	@Override
+	public void render(GameContainer container, Graphics graphics)
+			throws SlickException {
+		graphics.drawImage(image, x, y);
 	}
 }

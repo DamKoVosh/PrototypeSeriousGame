@@ -8,6 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import drawObject.DrawManager;
+
 import player.Player;
 
 import entity.BasicEntity;
@@ -37,9 +39,13 @@ public class Prototype extends BasicGame{
 	@Override
 	public void render(GameContainer container, Graphics graphics) throws SlickException {
 		graphics.drawImage(background, 0, 0);
+		
+		DrawManager.getInstanceOf().render(container, graphics);
+		//System.out.println(player.getZBuffer());
+		/*
 		entitys.render(container, graphics);
 		player.render(container, graphics);
-		navigationManager.rendermesh(graphics);
+		//navigationManager.rendermesh(graphics);*/
 	}
 
 	@Override
