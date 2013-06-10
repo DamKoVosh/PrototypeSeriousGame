@@ -19,7 +19,6 @@ public class BasicEntity extends DrawAbleObject{
 	
 	public BasicEntity(String name, Image image, Event event, int x, int y, float rotation) {	
 		super(y + image.getHeight() / 2);
-		System.out.println(this.getZBuffer());
 		this.x = x;
 		this.y = y;
 		this.name = name;

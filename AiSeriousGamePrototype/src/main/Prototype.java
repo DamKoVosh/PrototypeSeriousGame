@@ -41,11 +41,6 @@ public class Prototype extends BasicGame{
 		graphics.drawImage(background, 0, 0);
 		
 		DrawManager.getInstanceOf().render(container, graphics);
-		//System.out.println(player.getZBuffer());
-		/*
-		entitys.render(container, graphics);
-		player.render(container, graphics);
-		//navigationManager.rendermesh(graphics);*/
 	}
 
 	@Override
