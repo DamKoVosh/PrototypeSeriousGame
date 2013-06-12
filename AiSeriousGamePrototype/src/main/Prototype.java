@@ -41,6 +41,7 @@ public class Prototype extends BasicGame{
 		graphics.drawImage(background, 0, 0);
 		
 		DrawManager.getInstanceOf().render(container, graphics);
+		navigationManager.rendermesh(graphics);
 	}
 
 	@Override
