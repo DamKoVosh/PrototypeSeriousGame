@@ -1,11 +1,6 @@
-/main
-/Entity
-/player
-/entity
-/Navigation
-/NavigationManager
-/avigation
-/navigation
-/events
-/graphics
 /drawObject
+/entity
+/events
+/main
+/navigation
+/player

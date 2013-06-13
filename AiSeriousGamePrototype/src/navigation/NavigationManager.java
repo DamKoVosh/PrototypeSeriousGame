@@ -16,7 +16,7 @@ public class NavigationManager {
 	private ArrayList<Player> playerList;
 	private ArrayList<Event> playerEvents;
 	private ArrayList<ArrayList<Point>> playerPathes;
-	private final int GRID_SIZE = 20;
+	private final int GRID_SIZE = 10;
 	
 	public NavigationManager(EntityHandler entitys, int mapWidth, int mapHeight) {
 		this.entitys = entitys;
@@ -91,11 +91,10 @@ public class NavigationManager {
 	}
 	
 	private void createNavMesh() {
-		
 		for (int i = 0; i < mapWidth / GRID_SIZE; i++) {
 			ArrayList<Boolean> row = new ArrayList<>();
 			for (int j = 0; j < mapHeight / GRID_SIZE; j++) {
-				if (entitys.getEntity(i * GRID_SIZE, j * GRID_SIZE) != null || i == 0 || j == 0) {
+				if (entitys.getEntity(i * GRID_SIZE, j * GRID_SIZE) != null || i == 0 || j <= 7) {
 					row.add(false);
 				} else {
 					row.add(true);

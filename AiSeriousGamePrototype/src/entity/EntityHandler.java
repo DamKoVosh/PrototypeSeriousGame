@@ -8,6 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
+import events.EmptyEvent;
 import events.HouseEvent;
 
 public class EntityHandler {
@@ -28,6 +29,7 @@ public class EntityHandler {
 			this.entitys.add(new BasicEntity("house6", new Image("img/house.png"), new HouseEvent(), 780, 80, 0));
 			this.entitys.add(new BasicEntity("house7", new Image("img/house.png"), new HouseEvent(), 950, 270, 0));
 			this.entitys.add(new BasicEntity("house8", new Image("img/house.png"), new HouseEvent(), 780, 450, 0));
+			this.entitys.add(new BasicEntity("sea", new Image("img/sea.png"), new EmptyEvent(), 0, -768, 0));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

@@ -6,7 +6,10 @@ public class HouseEvent extends Event{
 
 	@Override
 	public void activateEvent(Player player) {
-		System.out.println("player entered " + this.entity.getName());		
+		if (player.getFootY() > this.entity.getY() + this.entity.getHeight()) {
+			System.out.println("player entered " + this.entity.getName());
+		} else {
+			System.out.println("player is not at the entrance");
+		}
 	}
-
 }

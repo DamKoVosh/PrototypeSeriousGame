@@ -23,6 +23,8 @@ public class Prototype extends BasicGame{
 	private EntityHandler entitys;
 	private Player player;
 	private NavigationManager navigationManager;
+	private final static int WIDTH = 1024;
+	private final static int HEIGHT = 768;
 	
 	public Prototype(String title) {
 		super(title);
@@ -30,7 +32,7 @@ public class Prototype extends BasicGame{
 
 	public static void main(String[] args) throws SlickException {
 		AppGameContainer container = new AppGameContainer (new Prototype("Board Game Designer"));
-        container.setDisplayMode(1280, 720, false);
+        container.setDisplayMode(WIDTH, HEIGHT, false);
         container.setClearEachFrame(true);
         container.setMinimumLogicUpdateInterval(15);
         container.start();
@@ -41,13 +43,14 @@ public class Prototype extends BasicGame{
 		graphics.drawImage(background, 0, 0);
 		
 		DrawManager.getInstanceOf().render(container, graphics);
+		//navigationManager.rendermesh(graphics);
 	}
 
 	@Override
 	public void init(GameContainer c) throws SlickException {
-		background = new Image("img/background.jpg");
+		background = new Image("img/background.png");
 		entitys = new EntityHandler(c);
-		navigationManager = new NavigationManager(entitys, 1280, 720);
+		navigationManager = new NavigationManager(entitys, WIDTH, HEIGHT);
 		
 		player = new Player (600, 300);
 	}
