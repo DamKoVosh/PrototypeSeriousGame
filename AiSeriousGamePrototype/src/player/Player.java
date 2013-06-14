@@ -21,7 +21,7 @@ public class Player extends DrawAbleObject{
 	public static final int RIGHT = 1;
 	public static final int UP = 2;
 	public static final int DOWN = 3;
-	
+
 	public Player(int x, int y) {
 		super(y + 75);
 		try {
@@ -33,9 +33,9 @@ public class Player extends DrawAbleObject{
 		left = right = up = down = false;
 		this.x = x;
 		this.y = y;
-		
+
 		spritePos = 0;
-		
+
 		lastSpriteUpdate = System.currentTimeMillis();
 		lastMoveUpdate = System.currentTimeMillis();
 	}

@@ -1,4 +1,6 @@
 package main;
+import java.util.ArrayList;
+
 import navigation.NavigationManager;
 
 import org.newdawn.slick.AppGameContainer;
@@ -9,9 +11,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import drawObject.DrawManager;
-
 import player.Player;
-
+import player.Villager;
 import entity.BasicEntity;
 import entity.EntityHandler;
 import events.Event;
@@ -22,6 +23,7 @@ public class Prototype extends BasicGame{
 	private Image background;
 	private EntityHandler entitys;
 	private Player player;
+	private ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
 	private final static int WIDTH = 1024;
 	private final static int HEIGHT = 768;
@@ -43,7 +45,7 @@ public class Prototype extends BasicGame{
 		graphics.drawImage(background, 0, 0);
 		
 		DrawManager.getInstanceOf().render(container, graphics);
-		navigationManager.rendermesh(graphics);
+		//navigationManager.rendermesh(graphics);
 	}
 
 	@Override
@@ -53,6 +55,10 @@ public class Prototype extends BasicGame{
 		navigationManager = new NavigationManager(entitys, WIDTH, HEIGHT);
 		
 		player = new Player (600, 300);
+
+		for (int i = 0; i < 6; i++) {
+			villagers.add(new Villager(100, 100));
+		}
 	}
 
 	@Override
