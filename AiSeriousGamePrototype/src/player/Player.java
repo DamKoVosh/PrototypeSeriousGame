@@ -1,5 +1,7 @@
 package player;
 
+import main.Prototype;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -39,7 +41,7 @@ public class Player extends DrawAbleObject{
 		lastSpriteUpdate = System.currentTimeMillis();
 		lastMoveUpdate = System.currentTimeMillis();
 	}
-	
+
 	public void render(GameContainer container, Graphics graphics) throws SlickException {
 		if (!(left || right || up || down)) {
 			if (lastDirection == RIGHT) {
@@ -55,7 +57,7 @@ public class Player extends DrawAbleObject{
 			}
 		}
 	}
-	
+
 	public void setDirection(int direction) {
 		if (direction == LEFT && !left) {
 			spritePos = 0;
@@ -99,18 +101,18 @@ public class Player extends DrawAbleObject{
 				if (left && x > 0) {
 					x--;
 				}
-				if (right && x < 1280) {
+				if (right && x < Prototype.getWidth()) {
 					x++;
 				} 
 				if (up && y > 0) {
 					y--;
 				} 
-				if (down && y < 720) {
+				if (down && y < Prototype.getHeight()) {
 					y++;
 				} 
 			}
-			
-			if ((now - lastSpriteUpdate) >= 200) {
+
+			if ((now - lastSpriteUpdate) >= 150) {
 				lastSpriteUpdate = now;
 				spritePos ++;
 				if (spritePos > 5) {
@@ -125,11 +127,11 @@ public class Player extends DrawAbleObject{
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}
-	
+
 	public int getWidth() {
 		return 52;
 	}
@@ -144,5 +146,9 @@ public class Player extends DrawAbleObject{
 	
 	public int getFootY() {
 		return this.getY() + this.getHeight();
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }
