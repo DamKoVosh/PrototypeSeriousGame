@@ -16,7 +16,7 @@ public class Player extends DrawAbleObject{
 	private int x, y;
 	private long lastSpriteUpdate;
 	private long lastMoveUpdate;
-	
+
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
 	public static final int UP = 2;

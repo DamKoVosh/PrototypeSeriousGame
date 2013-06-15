@@ -18,23 +18,26 @@ import entity.EntityHandler;
 import events.Event;
 
 
-
 public class Prototype extends BasicGame{
 	private Image background;
 	private EntityHandler entitys;
 	private Player player;
 	private ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
+	
+	private static AppGameContainer container;
+	
 	private final static int WIDTH = 1024;
 	private final static int HEIGHT = 768;
-	
+	private final static boolean FULLSCREEN = false;
+
 	public Prototype(String title) {
 		super(title);
 	}
 
 	public static void main(String[] args) throws SlickException {
-		AppGameContainer container = new AppGameContainer (new Prototype("Board Game Designer"));
-        container.setDisplayMode(WIDTH, HEIGHT, false);
+		container = new AppGameContainer (new Prototype("Board Game Designer"));
+        container.setDisplayMode(WIDTH, HEIGHT, FULLSCREEN);
         container.setClearEachFrame(true);
         container.setMinimumLogicUpdateInterval(15);
         container.start();
@@ -56,8 +59,10 @@ public class Prototype extends BasicGame{
 		
 		player = new Player (600, 300);
 
+		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};
 		for (int i = 0; i < 6; i++) {
-			villagers.add(new Villager(100, 100));
+			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager));
+			villagers.get(i).setName(names[i]);
 		}
 	}
 
@@ -65,11 +70,32 @@ public class Prototype extends BasicGame{
 	public void update(GameContainer arg0, int arg1) throws SlickException {
 		navigationManager.update();
 		player.update();
+		for (Villager villager : villagers) {
+			villager.update();
+		}
 	}
 	
 	@Override
 	public void keyPressed(int key, char c) {
 		switch(key) {
+			case 1:
+				if (container.isFullscreen()) {
+					try {
+						container.setFullscreen(false);
+					} catch (SlickException e) {
+						e.printStackTrace();
+					}
+				}
+				break;
+			case 87:
+				if (!container.isFullscreen()) {
+					try {
+						container.setFullscreen(true);
+					} catch (SlickException e) {
+						e.printStackTrace();
+					}
+				}
+				break;
 			case 203:
 				player.setDirection(Player.LEFT);
 				break;
@@ -113,5 +139,13 @@ public class Prototype extends BasicGame{
 			}
 			navigationManager.addMovement(player, event, x, y);
 		}
+	}
+
+	public static int getHeight() {
+		return Prototype.HEIGHT;
+	}
+
+	public static int getWidth() {
+		return Prototype.WIDTH;
 	}
 }

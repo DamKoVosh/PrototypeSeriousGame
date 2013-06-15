@@ -50,4 +50,15 @@ public class EntityHandler {
 		}
 		return entity;
 	}
+
+	public BasicEntity getEntity(String name) {
+		BasicEntity entity = null;
+		for (int i = 0; i < entitys.size(); i++) {
+			if (entitys.get(i).getName().equals(name)) {
+				entity = entitys.get(i);
+				break;
+			}
+		}
+		return entity;
+	}
 }
