@@ -11,13 +11,13 @@ import drawObject.DrawAbleObject;
 import drawObject.DrawManager;
 
 public class Player extends DrawAbleObject{
-	private Image image;
-	private boolean left, right, up, down;
-	private int lastDirection;
-	private int spritePos;
-	private int x, y;
-	private long lastSpriteUpdate;
-	private long lastMoveUpdate;
+	public Image image;
+	public boolean left, right, up, down;
+	public int lastDirection;
+	public int spritePos;
+	public int x, y;
+	public long lastSpriteUpdate;
+	public long lastMoveUpdate;
 
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
