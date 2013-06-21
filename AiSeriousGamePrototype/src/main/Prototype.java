@@ -16,6 +16,7 @@ import player.Villager;
 import entity.BasicEntity;
 import entity.EntityHandler;
 import events.Event;
+import events.TalkEvent;
 
 
 public class Prototype extends BasicGame{
@@ -144,9 +145,12 @@ public class Prototype extends BasicGame{
 			} else {
 				for (int i = 0; i < villagers.size(); i++) {
 					if (villagers.get(i).checkColission(x, y)) {
-						System.out.println("sprechen mit " + villagers.get(i).getName());
+						System.out.println("gehe zu " + villagers.get(i).getName() + " um mit ihm zu sprechen");
 						villagers.get(i).setState(Villager.TALKING);
 						talkPartner = villagers.get(i);
+						TalkEvent talkEvent = new TalkEvent();
+						talkEvent.setPartner(talkPartner);
+						event = talkEvent;					
 						break;
 					}
 				}
