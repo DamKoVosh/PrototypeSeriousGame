@@ -183,20 +183,21 @@ public class NavigationManager {
 				&& leftDistance <= upDistance) {
 			realEnd = new Point((newEntity.getX() - GRID_SIZE / 2) / GRID_SIZE,
 					end.getY());
-		} else if (rightDistance < leftDistance && rightDistance < downDistance
-				&& rightDistance < upDistance) {
+		} else if (rightDistance <= leftDistance && rightDistance <= downDistance
+				&& rightDistance <= upDistance) {
 			realEnd = new Point(
 					(newEntity.getX() + GRID_SIZE + newEntity.getWidth())
 							/ GRID_SIZE, end.getY());
-		} else if (downDistance < rightDistance && downDistance < leftDistance
-				&& downDistance < upDistance) {
+		} else if (downDistance <= rightDistance && downDistance <= leftDistance
+				&& downDistance <= upDistance) {
 			realEnd = new Point(end.getX(),
 					(newEntity.getY() + GRID_SIZE + newEntity.getHeight())
 							/ GRID_SIZE);
 		} else if (upDistance < leftDistance && upDistance < downDistance
 				&& upDistance < rightDistance) {
 			realEnd = new Point(end.getX(),
-					(newEntity.getY() + newEntity.getHeight() / 2) / GRID_SIZE);
+					(newEntity.getY() - GRID_SIZE + newEntity.getHeight() / 2) 
+							/ GRID_SIZE);
 		}
 
 		return realEnd;
