@@ -151,4 +151,11 @@ public class Player extends DrawAbleObject{
 	public void setImage(Image image) {
 		this.image = image;
 	}
+
+	public void stopMoving() {
+		this.releaseDirection(DOWN);
+		this.releaseDirection(UP);
+		this.releaseDirection(LEFT);
+		this.releaseDirection(RIGHT);		
+	}
 }

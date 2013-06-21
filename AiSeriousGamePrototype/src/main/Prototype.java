@@ -22,6 +22,7 @@ public class Prototype extends BasicGame{
 	private Image background;
 	private EntityHandler entitys;
 	private Player player;
+	private Villager talkPartner;
 	private ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
 	
@@ -132,10 +133,23 @@ public class Prototype extends BasicGame{
 	@Override
 	public void mouseClicked(int button, int x, int y, int count) {
 		if (button == 0) {
+			if (talkPartner != null) {
+				talkPartner.resetState();
+			}
+			
 			Event event = null;
 			BasicEntity entity = entitys.getEntity(x, y);
 			if (entity != null) {
 				event = entity.getEvent();
+			} else {
+				for (int i = 0; i < villagers.size(); i++) {
+					if (villagers.get(i).checkColission(x, y)) {
+						System.out.println("sprechen mit " + villagers.get(i).getName());
+						villagers.get(i).setState(Villager.TALKING);
+						talkPartner = villagers.get(i);
+						break;
+					}
+				}
 			}
 			navigationManager.addMovement(player, event, x, y);
 		}

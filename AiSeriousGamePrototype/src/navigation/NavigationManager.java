@@ -303,4 +303,14 @@ public class NavigationManager {
 		}
 		return newArea;
 	}
+
+	public void deleteMovement(Player player) {
+		int index = -1;
+		if ((index = this.playerList.indexOf(player)) != -1) {
+			this.playerEvents.remove(index);
+			this.playerList.remove(index);
+			this.playerPathes.remove(index);
+			player.stopMoving();
+		}		
+	}
 }
