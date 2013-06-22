@@ -58,7 +58,7 @@ public class ConversationManager {
 		conversation.clear();
 		conversation.add(new ConversationString(name));
 		loadConversation();
-		conversation.add(new ExitString("see you later", player));
+		conversation.add(new ExitString("Bis später.", player));
 	}
 	
 	public void render(GameContainer container, Graphics graphics) throws SlickException {
