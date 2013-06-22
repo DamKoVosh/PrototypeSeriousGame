@@ -127,9 +127,11 @@ public class NavigationManager {
 			}
 		}
 		if (!this.playerPathes.isEmpty()) {
-			for (int i = 0; i < playerPathes.get(0).size(); i++) {
-				g.fillRect(playerPathes.get(0).get(i).getX() * GRID_SIZE,
-						playerPathes.get(0).get(i).getY() * GRID_SIZE, 5, 5);
+			for (int j = 0; j < playerPathes.size(); j++) {
+				for (int i = 0; i < playerPathes.get(j).size(); i++) {
+					g.fillRect(playerPathes.get(j).get(i).getX() * GRID_SIZE,
+							playerPathes.get(j).get(i).getY() * GRID_SIZE, 5, 5);
+				}
 			}
 		}
 	}

@@ -10,6 +10,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import conversation.ConversationManager;
+
 import drawObject.DrawManager;
 import player.Player;
 import player.Villager;
@@ -26,6 +28,7 @@ public class Prototype extends BasicGame{
 	private Villager talkPartner;
 	private ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
+	private boolean showNavMash;
 	
 	private static AppGameContainer container;
 	
@@ -50,7 +53,13 @@ public class Prototype extends BasicGame{
 		graphics.drawImage(background, 0, 0);
 		
 		DrawManager.getInstanceOf().render(container, graphics);
-		navigationManager.rendermesh(graphics);
+		if (showNavMash) {
+			navigationManager.rendermesh(graphics);
+		}
+		
+		if (player.getTalking()) {
+			ConversationManager.getInstance().render(container, graphics);
+		}
 	}
 
 	@Override
@@ -70,10 +79,12 @@ public class Prototype extends BasicGame{
 
 	@Override
 	public void update(GameContainer arg0, int arg1) throws SlickException {
-		navigationManager.update();
-		player.update();
-		for (Villager villager : villagers) {
-			villager.update();
+		if (!player.getTalking()) {
+			navigationManager.update();
+			player.update();
+			for (Villager villager : villagers) {
+				villager.update();
+			}
 		}
 	}
 	
@@ -88,6 +99,9 @@ public class Prototype extends BasicGame{
 						e.printStackTrace();
 					}
 				}
+				break;
+			case 37:
+				showNavMash = !showNavMash;
 				break;
 			case 87:
 				if (!container.isFullscreen()) {
@@ -133,29 +147,42 @@ public class Prototype extends BasicGame{
 	
 	@Override
 	public void mouseClicked(int button, int x, int y, int count) {
-		if (button == 0) {
-			if (talkPartner != null) {
-				talkPartner.resetState();
-			}
-			
-			Event event = null;
-			BasicEntity entity = entitys.getEntity(x, y);
-			if (entity != null) {
-				event = entity.getEvent();
-			} else {
-				for (int i = 0; i < villagers.size(); i++) {
-					if (villagers.get(i).checkColission(x, y)) {
-						System.out.println("gehe zu " + villagers.get(i).getName() + " um mit ihm zu sprechen");
-						villagers.get(i).setState(Villager.TALKING);
-						talkPartner = villagers.get(i);
-						TalkEvent talkEvent = new TalkEvent();
-						talkEvent.setPartner(talkPartner);
-						event = talkEvent;					
-						break;
+		if (!player.getTalking()) {
+			if (button == 0) {
+				if (talkPartner != null) {
+					talkPartner.resetState();
+				}
+				
+				Event event = null;
+				BasicEntity entity = entitys.getEntity(x, y);
+				if (entity != null) {
+					event = entity.getEvent();
+				} else {
+					for (int i = 0; i < villagers.size(); i++) {
+						if (villagers.get(i).checkColission(x, y)) {
+							System.out.println("gehe zu " + villagers.get(i).getName() + " um mit ihm zu sprechen");
+							villagers.get(i).setState(Villager.TALKING);
+							talkPartner = villagers.get(i);
+							TalkEvent talkEvent = new TalkEvent();
+							talkEvent.setPartner(talkPartner);
+							event = talkEvent;
+							break;
+						}
 					}
 				}
+				navigationManager.addMovement(player, event, x, y);
 			}
-			navigationManager.addMovement(player, event, x, y);
+		} else {
+			if (button == 0 && count == 1) {
+				ConversationManager.getInstance().handleClick(x, y);
+			}
+		}
+	}
+	
+	@Override
+	public void mouseMoved(int oldX, int oldY, int newX, int newY) {
+		if (player.getTalking()) {
+			ConversationManager.getInstance().handleMouseMove(newX, newY);
 		}
 	}
 
