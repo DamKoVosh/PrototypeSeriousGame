@@ -23,6 +23,8 @@ public class Player extends DrawAbleObject{
 	public static final int RIGHT = 1;
 	public static final int UP = 2;
 	public static final int DOWN = 3;
+	
+	private boolean talking;
 
 	public Player(int x, int y) {
 		super(y + 75);
@@ -56,6 +58,14 @@ public class Player extends DrawAbleObject{
 				graphics.drawImage(image, x, y, x + 52, y + 75, spritePos * 52, 76, spritePos * 52 + 52, 150);
 			}
 		}
+	}
+	
+	public boolean getTalking() {
+		return talking;
+	}
+	
+	public void setTalking(boolean talking) {
+		this.talking = talking;
 	}
 
 	public void setDirection(int direction) {
@@ -150,5 +160,12 @@ public class Player extends DrawAbleObject{
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public void stopMoving() {
+		this.releaseDirection(DOWN);
+		this.releaseDirection(UP);
+		this.releaseDirection(LEFT);
+		this.releaseDirection(RIGHT);		
 	}
 }

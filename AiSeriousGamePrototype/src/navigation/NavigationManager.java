@@ -127,9 +127,11 @@ public class NavigationManager {
 			}
 		}
 		if (!this.playerPathes.isEmpty()) {
-			for (int i = 0; i < playerPathes.get(0).size(); i++) {
-				g.fillRect(playerPathes.get(0).get(i).getX() * GRID_SIZE,
-						playerPathes.get(0).get(i).getY() * GRID_SIZE, 5, 5);
+			for (int j = 0; j < playerPathes.size(); j++) {
+				for (int i = 0; i < playerPathes.get(j).size(); i++) {
+					g.fillRect(playerPathes.get(j).get(i).getX() * GRID_SIZE,
+							playerPathes.get(j).get(i).getY() * GRID_SIZE, 5, 5);
+				}
 			}
 		}
 	}
@@ -183,20 +185,21 @@ public class NavigationManager {
 				&& leftDistance <= upDistance) {
 			realEnd = new Point((newEntity.getX() - GRID_SIZE / 2) / GRID_SIZE,
 					end.getY());
-		} else if (rightDistance < leftDistance && rightDistance < downDistance
-				&& rightDistance < upDistance) {
+		} else if (rightDistance <= leftDistance && rightDistance <= downDistance
+				&& rightDistance <= upDistance) {
 			realEnd = new Point(
 					(newEntity.getX() + GRID_SIZE + newEntity.getWidth())
 							/ GRID_SIZE, end.getY());
-		} else if (downDistance < rightDistance && downDistance < leftDistance
-				&& downDistance < upDistance) {
+		} else if (downDistance <= rightDistance && downDistance <= leftDistance
+				&& downDistance <= upDistance) {
 			realEnd = new Point(end.getX(),
 					(newEntity.getY() + GRID_SIZE + newEntity.getHeight())
 							/ GRID_SIZE);
 		} else if (upDistance < leftDistance && upDistance < downDistance
 				&& upDistance < rightDistance) {
 			realEnd = new Point(end.getX(),
-					(newEntity.getY() + newEntity.getHeight() / 2) / GRID_SIZE);
+					(newEntity.getY() - GRID_SIZE + newEntity.getHeight() / 2) 
+							/ GRID_SIZE);
 		}
 
 		return realEnd;
@@ -301,5 +304,15 @@ public class NavigationManager {
 			newArea.add(new Point(point.getX() + 1, point.getY() - 1));
 		}
 		return newArea;
+	}
+
+	public void deleteMovement(Player player) {
+		int index = -1;
+		if ((index = this.playerList.indexOf(player)) != -1) {
+			this.playerEvents.remove(index);
+			this.playerList.remove(index);
+			this.playerPathes.remove(index);
+			player.stopMoving();
+		}		
 	}
 }

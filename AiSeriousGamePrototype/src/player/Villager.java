@@ -25,6 +25,7 @@ public class Villager extends Player {
 	 */
 	private String name;
 	private int state;
+	private int saveState;
 	private static Fisher fisher;
 
 	//states
@@ -32,6 +33,7 @@ public class Villager extends Player {
 	public static final int PUB = 1;
 	public static final int SLEEPING = 2;
 	public static final int FISHING = 3;
+	public static final int TALKING = 4;
 
 	private EntityHandler entities;
 
@@ -42,19 +44,15 @@ public class Villager extends Player {
 		this.motivation = (Math.random()*3);
 		this.navManager = navManager;
 
+		saveState = -1;
+		
 		// Determine the initial state
 		state = (int) Math.round(motivation);
-		switch(state) {
-		case FISHER:
-			fishing();
-			break;
-		case PUB:
-			pub();
-			break;
-		case SLEEPING:
-			sleeping();
-			break;
-		}
+		setState(state);		
+	}
+
+	private void talking() {
+		this.navManager.deleteMovement(this);
 	}
 
 	/**
@@ -107,6 +105,37 @@ public class Villager extends Player {
 	}
 
 	public void setState(int state) {
+		if (state == TALKING) {
+			saveState = this.state;
+		}
 		this.state = state;
+		
+		switch(state) {
+		case FISHER:
+			fishing();
+			break;
+		case PUB:
+			pub();
+			break;
+		case SLEEPING:
+			sleeping();
+			break;
+		case TALKING:
+			talking();
+			break;
+		}
+	}
+	
+	public void resetState() {
+		if (saveState != -1) {
+			this.setState(saveState);
+		}
+	}
+
+	public boolean checkColission(int x, int y) {
+		if (x >= this.x && x <= this.x + this.getWidth() && y >= this.y && y <= this.y + this.getHeight()) {
+			return true;
+		}
+		return false;
 	}
 }

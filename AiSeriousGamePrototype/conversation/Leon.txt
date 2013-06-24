@@ -1,0 +1,27 @@
+Intro:
+Guten Tag, wie geht es dir heute
+ 
+Title:
+Was hat es mit dem Brennenden Haus auf sich?
+Text:
+Das Haus ist letzte Nacht in Flammen aufgegangen. 
+Rudolf hat dort gewohnt, er hat es jedoch nicht mehr hinaus geschafft. 
+Ich hoffe so etwas passiert nicht nocheinmal.
+
+Title:
+Wer hat das Brennen des Hauses als erstes bemerkt?
+Text:
+Das war Martin, er hat auch gleich versucht das Feuer zu Löschen.
+Wir sind wohl ein wenig zu langsam aus den Betten gekommen.
+
+Title:
+Wie Löscht man ein Haus?
+Text:
+Nun das ist nicht so leicht erklärt, 
+man muss in einer Kette das Wasser vom Brunnen aus zum Haus schaffen 
+und dort an den richtigen stellen einsetzen.
+
+Title:
+Wie kommt man in die Mine
+Text:
+Tut mir leid die ist derzeit geschlossen.
