@@ -6,7 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import drawObject.DrawManager;
 import entity.EntityHandler;
 import events.FisherArrives;
 
