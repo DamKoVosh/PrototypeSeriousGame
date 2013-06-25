@@ -6,12 +6,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import entity.EntityHandler;
 import events.EnterHouse;
 import events.FisherArrives;
 
 public class Villager extends Player {
-	private EntityHandler entities;
 	// movement
 	private NavigationManager navManager;
 
@@ -26,7 +24,7 @@ public class Villager extends Player {
 	private String name;
 	private int state;
 	private int saveState;
-	private static Fisher fisher;
+	private Fisher fisher;
 	private boolean visible = true;
 
 	//states
@@ -37,13 +35,12 @@ public class Villager extends Player {
 	public static final int TALKING = 4;
 	public static final int INSIDE = 5;
 
-	public Villager(int x, int y, NavigationManager navManager, EntityHandler entity) {
+	public Villager(int x, int y, NavigationManager navManager) {
 		super(x, y);
-		Villager.fisher = new Fisher();
+		this.fisher = new Fisher();
 
 		this.motivation = (Math.random() * 3);
 		this.navManager = navManager;
-		this.entities = entity;
 
 		saveState = -1;
 
@@ -68,9 +65,9 @@ public class Villager extends Player {
 
 	private void pub() {
 		// go to the pub
-		int x = 765;
+		int x = 775;
 		int y = 255;
-		this.navManager.addMovement(this, new EnterHouse(this.entities.getEntity("pub")), x, y);
+		this.navManager.addMovement(this, new EnterHouse(), x, y);
 	}
 
 	/**
@@ -78,20 +75,17 @@ public class Villager extends Player {
 	 */
 	private void sleeping() {
 		int x, y;
-		String entity = "";
 		if (Math.random() < 0.5) {
 			// dark roof
 			x = 220;
 			y = 470;
-			entity = "houseBlack";
 		} else {
 			// red roof
 			x = 370;
 			y = 290;
-			entity = "houseRed";
 		}
 
-		this.navManager.addMovement(this, new EnterHouse(this.entities.getEntity(entity)), x, y);
+		this.navManager.addMovement(this, new EnterHouse(), x, y);
 	}
 
 	public void setName(String name) {
@@ -107,10 +101,10 @@ public class Villager extends Player {
 		if (this.visible) {
 			switch (state) {
 			case FISHER:
-				Fisher.renderWalkingFisher(graphics, left, right, up, down, x, y, lastDirection, spritePos);
+				fisher.renderWalkingFisher(graphics, left, right, up, down, x, y, lastDirection, spritePos);
 				break;
 			case FISHING:
-				Fisher.renderFishingFisher(graphics, x, y);
+				fisher.renderFishingFisher(graphics, x, y);
 				break;
 			default:
 				super.render(container, graphics);

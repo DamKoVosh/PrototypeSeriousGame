@@ -71,7 +71,7 @@ public class Prototype extends BasicGame {
 
 		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};
 		for (int i = 0; i < 6; i++) {
-			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager, this.entitys));
+			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager));
 			villagers.get(i).setName(names[i]);
 		}
 	}

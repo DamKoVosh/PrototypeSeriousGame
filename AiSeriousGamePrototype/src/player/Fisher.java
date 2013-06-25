@@ -14,9 +14,9 @@ public class Fisher {
 	 * Width of a tile of the fisher's sprite.
 	 */
 	private static int fisherWidth = 96;
-	private static int spritePos = 0;
-	private static int spritePosWaiting = 0;
-	private static boolean wait = true;
+	private int spritePos = 0;
+	private int spritePosWaiting = 0;
+	private long lastMoveUpdate;
 
 	public Fisher () {
 		try {
@@ -24,9 +24,10 @@ public class Fisher {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		lastMoveUpdate = System.currentTimeMillis();
 	}
 
-	public static void renderWalkingFisher(Graphics graphics, boolean left, boolean right, boolean up, boolean down,
+	public void renderWalkingFisher(Graphics graphics, boolean left, boolean right, boolean up, boolean down,
 			int x, int y, int lastDirection, int spritePos) {
 		if (!(left || right || up || down)) {
 			// standing
@@ -46,17 +47,22 @@ public class Fisher {
 		}
 	}
 
-	public static void renderFishingFisher(Graphics graphics, int x, int y) {
-			graphics.drawImage(fisher, x, y, x + fisherWidth, y + fisherHeight, (Fisher.spritePos) * fisherWidth, fisherHeight,
-					(Fisher.spritePos) * fisherWidth + fisherWidth, fisherHeight * 2);
-			Fisher.spritePos++;
-			if (Fisher.spritePos > 12) {
-				/*if (Fisher.spritePosWaiting < 10) {
-					Fisher.spritePos = 10;
-					Fisher.spritePosWaiting++;
-				} else {*/
-					Fisher.spritePos = 0;
+	public void renderFishingFisher(Graphics graphics, int x, int y) {
+		graphics.drawImage(fisher, x, y, x + fisherWidth, y + fisherHeight, (this.spritePos) * fisherWidth, fisherHeight,
+				(this.spritePos) * fisherWidth + fisherWidth, fisherHeight * 2);
+		long now = System.currentTimeMillis();
+		if ((now - lastMoveUpdate) >= 90) {
+			this.spritePos++;
+			if (this.spritePos > 12) {
+				if (this.spritePosWaiting < 8) {
+					this.spritePos = 10;
+					this.spritePosWaiting = this.spritePosWaiting - (int) Math.floor(Math.random() * 2) + 1;
+				} else {
+					this.spritePos = 0;
+					spritePosWaiting = 0;
+				}
 			}
-
+			lastMoveUpdate = now;
+		}
 	}
 }

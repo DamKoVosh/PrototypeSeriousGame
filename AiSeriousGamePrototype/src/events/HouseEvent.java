@@ -1,7 +1,6 @@
 package events;
 
 import player.Player;
-import player.Villager;
 
 public class HouseEvent extends Event {
 
