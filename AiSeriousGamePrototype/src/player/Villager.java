@@ -39,13 +39,13 @@ public class Villager extends Player {
 		super(x, y);
 		this.fisher = new Fisher();
 
-		this.motivation = (Math.random() * 3);
+		this.motivation = Math.random();
 		this.navManager = navManager;
 
 		saveState = -1;
 
 		// Determine the initial state
-		state = (int) Math.floor(motivation);
+		state = (int) Math.floor(motivation * 3);
 		setState(state);
 	}
 
@@ -112,6 +112,36 @@ public class Villager extends Player {
 		} else {
 			renderInside(graphics);
 		}
+
+		computeState();
+	}
+
+	public void computeState() {
+		long now = System.currentTimeMillis();
+		if (now - this.lastMoveUpdate >= 500) {
+			if (this.state == FISHING) {
+				this.motivation -= 0.01;
+				if (this.motivation < 0) {
+					this.setState(PUB);
+				}
+			} else {
+				if (this.visible == false) {
+					// villager is in a pub or house and recovers
+					this.motivation += 0.01;
+				}
+
+				if (this.motivation > 1 && this.state != TALKING) {
+					this.setState(FISHER);
+					this.setVisible(true);
+				} else if (this.motivation > 0.4 && this.state == PUB) {
+					this.setState(SLEEPING);
+					this.setVisible(true);
+					System.out.println(this.motivation);
+				}
+			}
+
+			this.lastMoveUpdate = now;
+		}
 	}
 
 	public void renderInside(Graphics graphics) {
@@ -168,5 +198,13 @@ public class Villager extends Player {
 	@Override
 	public boolean isVillager() {
 		return true;
+	}
+
+	public long getLastUpdate() {
+		return this.lastMoveUpdate;
+	}
+
+	public void setLastUpdate(long timestamp) {
+		this.lastMoveUpdate = timestamp;
 	}
 }

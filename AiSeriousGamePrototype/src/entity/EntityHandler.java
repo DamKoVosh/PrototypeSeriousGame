@@ -26,7 +26,7 @@ public class EntityHandler {
 			this.entitys.add(new BasicEntity("houseBlack", new Image("img/house1.png"), new HouseEvent(), 155, 279, 0));
 			this.entitys.add(new BasicEntity("houseRed", new Image("img/house2.png"), new HouseEvent(), 318, 79, 0));
 			this.entitys.add(new BasicEntity("mine", new Image("img/mine.png"), new EmptyEvent(), 550, -11, 0));
-			this.entitys.add(new BasicEntity("sawmill", new Image("img/sawmill.png"), new HouseEvent(), 825, 80, 0));
+			this.entitys.add(new BasicEntity("sawmill", new Image("img/sawmill.png"), new HouseEvent(), 825, 279, 0));
 			this.entitys.add(new BasicEntity("mill", new Image("img/mill.png"), new EmptyEvent(), 320, 450, 0));
 			this.entitys.add(new BasicEntity("pub", new Image("img/pub.png"), new HouseEvent(), 705, 89, 0));
 			this.entitys.add(new BasicEntity("sea", new Image("img/sea.png"), new FishingEvent(), 0, -768, 0));

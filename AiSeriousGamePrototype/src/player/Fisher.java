@@ -16,7 +16,7 @@ public class Fisher {
 	private static int fisherWidth = 96;
 	private int spritePos = 0;
 	private int spritePosWaiting = 0;
-	private long lastMoveUpdate;
+	private long lastUpdate;
 
 	public Fisher () {
 		try {
@@ -24,7 +24,7 @@ public class Fisher {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		lastMoveUpdate = System.currentTimeMillis();
+		lastUpdate = System.currentTimeMillis();
 	}
 
 	public void renderWalkingFisher(Graphics graphics, boolean left, boolean right, boolean up, boolean down,
@@ -51,7 +51,7 @@ public class Fisher {
 		graphics.drawImage(fisher, x, y, x + fisherWidth, y + fisherHeight, (this.spritePos) * fisherWidth, fisherHeight,
 				(this.spritePos) * fisherWidth + fisherWidth, fisherHeight * 2);
 		long now = System.currentTimeMillis();
-		if ((now - lastMoveUpdate) >= 90) {
+		if ((now - lastUpdate) >= 90) {
 			this.spritePos++;
 			if (this.spritePos > 12) {
 				if (this.spritePosWaiting < 8) {
@@ -62,7 +62,7 @@ public class Fisher {
 					spritePosWaiting = 0;
 				}
 			}
-			lastMoveUpdate = now;
+			lastUpdate = now;
 		}
 	}
 }
