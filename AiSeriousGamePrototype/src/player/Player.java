@@ -2,6 +2,7 @@ package player;
 
 import main.Prototype;
 
+import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -18,6 +19,7 @@ public class Player extends DrawAbleObject{
 	public int x, y;
 	public long lastSpriteUpdate;
 	public long lastMoveUpdate;
+	private Inventar inventar;
 
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
@@ -171,5 +173,13 @@ public class Player extends DrawAbleObject{
 
 	public boolean isVillager() {
 		return false;
+	}
+	
+	public void addInventar(Inventar inventar) {
+		this.inventar = inventar;
+	}
+
+	public Inventar getInventar() {
+		return inventar;
 	}
 }

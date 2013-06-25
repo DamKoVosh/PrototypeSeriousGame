@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 import conversation.ConversationManager;
 
 import drawObject.DrawManager;
+import player.Inventar;
 import player.Player;
 import player.Villager;
 import entity.BasicEntity;
@@ -52,6 +53,7 @@ public class Prototype extends BasicGame {
 		graphics.drawImage(background, 0, 0);
 		
 		DrawManager.getInstanceOf().render(container, graphics);
+		player.getInventar().render(container, graphics);
 		if (showNavMash) {
 			navigationManager.rendermesh(graphics);
 		}
@@ -68,7 +70,8 @@ public class Prototype extends BasicGame {
 		navigationManager = new NavigationManager(entitys, WIDTH, HEIGHT);
 
 		player = new Player (600, 300);
-
+		player.addInventar(new Inventar());
+		
 		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};
 		for (int i = 0; i < 6; i++) {
 			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager));

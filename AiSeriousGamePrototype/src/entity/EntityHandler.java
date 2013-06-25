@@ -9,7 +9,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
 import events.EmptyEvent;
+import events.FishingEvent;
 import events.HouseEvent;
+import events.RuineEvent;
 
 public class EntityHandler {
 	private ArrayList<BasicEntity> entitys;
@@ -27,8 +29,9 @@ public class EntityHandler {
 			this.entitys.add(new BasicEntity("sawmill", new Image("img/sawmill.png"), new HouseEvent(), 825, 80, 0));
 			this.entitys.add(new BasicEntity("mill", new Image("img/mill.png"), new EmptyEvent(), 320, 450, 0));
 			this.entitys.add(new BasicEntity("pub", new Image("img/pub.png"), new HouseEvent(), 705, 89, 0));
-			this.entitys.add(new BasicEntity("sea", new Image("img/sea.png"), new EmptyEvent(), 0, -768, 0));
+			this.entitys.add(new BasicEntity("sea", new Image("img/sea.png"), new FishingEvent(), 0, -768, 0));
 			this.entitys.add(new BasicEntity("well", new Image("img/well.png"), new EmptyEvent(), 580, 360, 0));
+			this.entitys.add(new BasicEntity("ruine", new Image("img/ruine.png"), new RuineEvent(), 755, 500, 0));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
