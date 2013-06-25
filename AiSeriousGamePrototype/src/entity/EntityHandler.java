@@ -23,7 +23,7 @@ public class EntityHandler {
 		try {
 			this.entitys.add(new BasicEntity("houseBlack", new Image("img/house1.png"), new HouseEvent(), 150, 270, 0));
 			this.entitys.add(new BasicEntity("houseRed", new Image("img/house2.png"), new HouseEvent(), 320, 80, 0));
-			this.entitys.add(new BasicEntity("mine", new Image("img/mine.png"), new HouseEvent(), 550, -10, 0));
+			this.entitys.add(new BasicEntity("mine", new Image("img/mine.png"), new EmptyEvent(), 550, -10, 0));
 			this.entitys.add(new BasicEntity("sawmill", new Image("img/sawmill.png"), new HouseEvent(), 825, 80, 0));
 			this.entitys.add(new BasicEntity("mill", new Image("img/mill.png"), new EmptyEvent(), 320, 450, 0));
 			this.entitys.add(new BasicEntity("pub", new Image("img/pub.png"), new HouseEvent(), 700, 80, 0));

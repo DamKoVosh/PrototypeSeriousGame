@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 
 import entity.EntityHandler;
 import events.FisherArrives;
+import events.HouseEvent;
 
 public class Villager extends Player {
 
@@ -34,21 +35,20 @@ public class Villager extends Player {
 	public static final int SLEEPING = 2;
 	public static final int FISHING = 3;
 	public static final int TALKING = 4;
-
-	private EntityHandler entities;
+	public static final int INSIDE = 5;
 
 	public Villager(int x, int y, NavigationManager navManager) {
 		super(x, y);
 		Villager.fisher = new Fisher();
 
-		this.motivation = (Math.random()*3);
+		this.motivation = (Math.random() * 3);
 		this.navManager = navManager;
 
 		saveState = -1;
-		
+
 		// Determine the initial state
-		state = (int) Math.round(motivation);
-		setState(state);		
+		state = (int) Math.floor(motivation);
+		setState(state);
 	}
 
 	private void talking() {
@@ -69,13 +69,23 @@ public class Villager extends Player {
 		// go to the pub
 		int x = 770;
 		int y = 260;
-		this.navManager.addMovement(this, null, x, y);
-		System.out.println(this.name + " is going to the pub now.");
+		this.navManager.addMovement(this, new HouseEvent(), x, y);
 	}
 
+	/**
+	 * The villager goes to one of the houses and enters them.
+	 */
 	private void sleeping() {
-		System.out.println("sleeping, " + motivation);
-		System.out.println(this.name + " is going to sleep now.");
+		int x, y;
+		if (Math.random() < 0.5) {
+			x = 220;
+			y = 470;
+		} else {
+			x = 370;
+			y = 300;
+		}
+
+		this.navManager.addMovement(this, new HouseEvent(), x, y);
 	}
 
 	public void setName(String name) {
@@ -95,9 +105,15 @@ public class Villager extends Player {
 			case FISHING:
 				Fisher.renderFishingFisher(graphics, x, y);
 				break;
+			case INSIDE:
+				renderInside(graphics);
 			default:
 				super.render(container, graphics);
 		}
+	}
+
+	public void renderInside(Graphics graphics) {
+		graphics.drawImage(image, x, y, x + 1, y + 1, spritePos * 52, 0, spritePos * 52 + 1, 1);
 	}
 
 	public int getState() {
@@ -125,7 +141,7 @@ public class Villager extends Player {
 			break;
 		}
 	}
-	
+
 	public void resetState() {
 		if (saveState != -1) {
 			this.setState(saveState);

@@ -59,7 +59,7 @@ public class Player extends DrawAbleObject{
 			}
 		}
 	}
-	
+
 	public boolean getTalking() {
 		return talking;
 	}
@@ -87,7 +87,7 @@ public class Player extends DrawAbleObject{
 			up = false;
 		}
 	}
-	
+
 	public void releaseDirection(int direction) {
 		if (direction == LEFT) {
 			left = false;
@@ -133,7 +133,7 @@ public class Player extends DrawAbleObject{
 			DrawManager.getInstanceOf().ChangeZBuffer(this);
 		}
 	}
-	
+
 	public int getX() {
 		return x;
 	}

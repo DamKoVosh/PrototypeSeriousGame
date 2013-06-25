@@ -3,7 +3,7 @@ package events;
 import player.Player;
 import player.Villager;
 
-public class FisherArrives extends Event{
+public class FisherArrives extends Event {
 
 	@Override
 	public void activateEvent(Player player) {

@@ -11,12 +11,12 @@ import events.Event;
 
 import player.Player;
 
-public class BasicEntity extends DrawAbleObject{
+public class BasicEntity extends DrawAbleObject {
 	private int x, y, width, height;
 	private Image image;
 	private String name;
 	private Event event;
-	
+
 	public BasicEntity(String name, Image image, Event event, int x, int y, float rotation) {	
 		super(y + image.getHeight() / 2);
 		this.x = x;
@@ -24,8 +24,8 @@ public class BasicEntity extends DrawAbleObject{
 		this.name = name;
 		this.event = event;
 		this.event.setEntity(this);
-		
-		this.image = image;	
+
+		this.image = image;
 		this.width = image.getWidth();
 		this.height = image.getHeight();
 		image.setRotation(rotation);
@@ -38,11 +38,11 @@ public class BasicEntity extends DrawAbleObject{
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -54,7 +54,7 @@ public class BasicEntity extends DrawAbleObject{
 	public int getY() {
 		return y;
 	}
-	
+
 	public void setLocation(int x, int y) {
 		this.x = x;
 		this.y = y;		
@@ -74,7 +74,7 @@ public class BasicEntity extends DrawAbleObject{
 	}
 
 	public boolean checkForCollission(int x, int y) {
-		if (x >= this.x && x <= this.x + this.width 
+		if (x >= this.x && x <= this.x + this.width
 				&& y >= this.y +  this.height / 2 && y <= this.y + this.height) {
 			return true;
 		}
