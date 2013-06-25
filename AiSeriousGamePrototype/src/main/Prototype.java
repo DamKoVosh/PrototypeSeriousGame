@@ -20,8 +20,7 @@ import entity.EntityHandler;
 import events.Event;
 import events.TalkEvent;
 
-
-public class Prototype extends BasicGame{
+public class Prototype extends BasicGame {
 	private Image background;
 	private EntityHandler entitys;
 	private Player player;
@@ -67,12 +66,12 @@ public class Prototype extends BasicGame{
 		background = new Image("img/background.png");
 		entitys = new EntityHandler(c);
 		navigationManager = new NavigationManager(entitys, WIDTH, HEIGHT);
-		
+
 		player = new Player (600, 300);
 
 		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};
 		for (int i = 0; i < 6; i++) {
-			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager));
+			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager, this.entitys));
 			villagers.get(i).setName(names[i]);
 		}
 	}
@@ -159,7 +158,7 @@ public class Prototype extends BasicGame{
 					event = entity.getEvent();
 				} else {
 					for (int i = 0; i < villagers.size(); i++) {
-						if (villagers.get(i).checkColission(x, y)) {
+						if (villagers.get(i).checkColission(x, y) && villagers.get(i).isVisible()) {
 							System.out.println("gehe zu " + villagers.get(i).getName() + " um mit ihm zu sprechen");
 							villagers.get(i).setState(Villager.TALKING);
 							talkPartner = villagers.get(i);

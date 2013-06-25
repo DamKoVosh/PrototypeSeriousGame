@@ -1,6 +1,3 @@
-/conversation
-/main
-/events
-/navigation
-/entity
 /player
+/events
+/main

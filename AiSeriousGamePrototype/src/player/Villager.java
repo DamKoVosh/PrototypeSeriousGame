@@ -7,13 +7,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import entity.EntityHandler;
+import events.EnterHouse;
 import events.FisherArrives;
-import events.HouseEvent;
 
 public class Villager extends Player {
-
+	private EntityHandler entities;
 	// movement
-
 	private NavigationManager navManager;
 
 	// agent
@@ -28,6 +27,7 @@ public class Villager extends Player {
 	private int state;
 	private int saveState;
 	private static Fisher fisher;
+	private boolean visible = true;
 
 	//states
 	public static final int FISHER = 0;
@@ -37,12 +37,13 @@ public class Villager extends Player {
 	public static final int TALKING = 4;
 	public static final int INSIDE = 5;
 
-	public Villager(int x, int y, NavigationManager navManager) {
+	public Villager(int x, int y, NavigationManager navManager, EntityHandler entity) {
 		super(x, y);
 		Villager.fisher = new Fisher();
 
 		this.motivation = (Math.random() * 3);
 		this.navManager = navManager;
+		this.entities = entity;
 
 		saveState = -1;
 
@@ -67,9 +68,9 @@ public class Villager extends Player {
 
 	private void pub() {
 		// go to the pub
-		int x = 770;
-		int y = 260;
-		this.navManager.addMovement(this, new HouseEvent(), x, y);
+		int x = 765;
+		int y = 255;
+		this.navManager.addMovement(this, new EnterHouse(this.entities.getEntity("pub")), x, y);
 	}
 
 	/**
@@ -77,15 +78,20 @@ public class Villager extends Player {
 	 */
 	private void sleeping() {
 		int x, y;
+		String entity = "";
 		if (Math.random() < 0.5) {
+			// dark roof
 			x = 220;
 			y = 470;
+			entity = "houseBlack";
 		} else {
+			// red roof
 			x = 370;
-			y = 300;
+			y = 290;
+			entity = "houseRed";
 		}
 
-		this.navManager.addMovement(this, new HouseEvent(), x, y);
+		this.navManager.addMovement(this, new EnterHouse(this.entities.getEntity(entity)), x, y);
 	}
 
 	public void setName(String name) {
@@ -98,22 +104,24 @@ public class Villager extends Player {
 
 	@Override
 	public void render(GameContainer container, Graphics graphics) throws SlickException {
-		switch (state) {
+		if (this.visible) {
+			switch (state) {
 			case FISHER:
 				Fisher.renderWalkingFisher(graphics, left, right, up, down, x, y, lastDirection, spritePos);
 				break;
 			case FISHING:
 				Fisher.renderFishingFisher(graphics, x, y);
 				break;
-			case INSIDE:
-				renderInside(graphics);
 			default:
 				super.render(container, graphics);
+			}
+		} else {
+			renderInside(graphics);
 		}
 	}
 
 	public void renderInside(Graphics graphics) {
-		graphics.drawImage(image, x, y, x + 1, y + 1, spritePos * 52, 0, spritePos * 52 + 1, 1);
+		graphics.drawImage(image, x, y, x, y, 1, 1, 1, 1);
 	}
 
 	public int getState() {
@@ -125,7 +133,7 @@ public class Villager extends Player {
 			saveState = this.state;
 		}
 		this.state = state;
-		
+
 		switch(state) {
 		case FISHER:
 			fishing();
@@ -153,5 +161,18 @@ public class Villager extends Player {
 			return true;
 		}
 		return false;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public boolean isVisible() {
+		return this.visible;
+	}
+
+	@Override
+	public boolean isVillager() {
+		return true;
 	}
 }

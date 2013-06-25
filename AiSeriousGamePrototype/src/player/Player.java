@@ -23,7 +23,7 @@ public class Player extends DrawAbleObject{
 	public static final int RIGHT = 1;
 	public static final int UP = 2;
 	public static final int DOWN = 3;
-	
+
 	private boolean talking;
 
 	public Player(int x, int y) {
@@ -102,7 +102,7 @@ public class Player extends DrawAbleObject{
 			spritePos = 0;		
 		}
 	}
-	
+
 	public void update() {
 		if (left || right || up || down) {
 			long now = System.currentTimeMillis();
@@ -167,5 +167,9 @@ public class Player extends DrawAbleObject{
 		this.releaseDirection(UP);
 		this.releaseDirection(LEFT);
 		this.releaseDirection(RIGHT);		
+	}
+
+	public boolean isVillager() {
+		return false;
 	}
 }
