@@ -12,10 +12,10 @@ import events.Event;
 import player.Player;
 
 public class BasicEntity extends DrawAbleObject {
-	private int x, y, width, height;
-	private Image image;
-	private String name;
-	private Event event;
+	public int x, y, width, height;
+	public Image image;
+	public String name;
+	public Event event;
 
 	public BasicEntity(String name, Image image, Event event, int x, int y, float rotation) {	
 		super(y + image.getHeight() / 2);

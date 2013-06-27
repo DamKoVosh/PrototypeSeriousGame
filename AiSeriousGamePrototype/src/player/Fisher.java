@@ -65,4 +65,16 @@ public class Fisher {
 			lastUpdate = now;
 		}
 	}
+
+	public void renderTalkingFisher(Graphics graphics, int x, int y, int lastDirection) {
+		long now = System.currentTimeMillis();
+		if (lastDirection == Player.RIGHT) {
+			graphics.drawImage(fisher, x, y, x + fisherWidth, y + fisherHeight, 13 * fisherWidth, fisherHeight,
+			13 * fisherWidth + fisherWidth, fisherHeight * 2);
+		} else {
+			graphics.drawImage(fisher, x, y, x + fisherWidth, y + fisherHeight, 14 * fisherWidth, fisherHeight,
+			14 * fisherWidth + fisherWidth, fisherHeight * 2);
+		}
+		lastUpdate = now;
+	}
 }

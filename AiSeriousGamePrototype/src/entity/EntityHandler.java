@@ -30,7 +30,7 @@ public class EntityHandler {
 			this.entitys.add(new BasicEntity("mill", new Image("img/mill.png"), new EmptyEvent(), 320, 450, 0));
 			this.entitys.add(new BasicEntity("pub", new Image("img/pub.png"), new HouseEvent(), 705, 89, 0));
 			this.entitys.add(new BasicEntity("sea", new Image("img/sea.png"), new FishingEvent(), 0, -768, 0));
-			this.entitys.add(new BasicEntity("well", new Image("img/well.png"), new EmptyEvent(), 580, 360, 0));
+			this.entitys.add(new WellEntity("well", new Image("img/wellfix.png"), new EmptyEvent(), 530, 349, 0));
 			this.entitys.add(new BasicEntity("ruine", new Image("img/ruine.png"), new RuineEvent(), 755, 500, 0));
 		} catch (SlickException e) {
 			e.printStackTrace();

@@ -69,7 +69,7 @@ public class Prototype extends BasicGame {
 		entitys = new EntityHandler(c);
 		navigationManager = new NavigationManager(entitys, WIDTH, HEIGHT);
 
-		player = new Player (600, 300);
+		player = new Player (500, 600);
 		player.addInventar(new Inventar());
 		
 		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};

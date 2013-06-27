@@ -34,6 +34,7 @@ public class Villager extends Player {
 	public static final int FISHING = 3;
 	public static final int TALKING = 4;
 	public static final int INSIDE = 5;
+	public static final int FIRE = 6;
 
 	public Villager(int x, int y, NavigationManager navManager) {
 		super(x, y);
@@ -106,6 +107,13 @@ public class Villager extends Player {
 			case FISHING:
 				fisher.renderFishingFisher(graphics, x, y);
 				break;
+			case TALKING:
+				if (saveState == FISHER || saveState == FISHING) {
+					fisher.renderTalkingFisher(graphics, x, y, lastDirection);
+				} else {
+					super.render(container, graphics);
+				}
+				break;
 			default:
 				super.render(container, graphics);
 			}
@@ -119,24 +127,25 @@ public class Villager extends Player {
 	public void computeState() {
 		long now = System.currentTimeMillis();
 		if (now - this.lastMoveUpdate >= 500) {
-			if (this.state == FISHING) {
-				this.motivation -= 0.01;
-				if (this.motivation < 0) {
-					this.setState(PUB);
-				}
-			} else {
-				if (this.visible == false) {
-					// villager is in a pub or house and recovers
-					this.motivation += 0.01;
-				}
+			if (this.state != FIRE && this.state != TALKING) {
+				if (this.state == FISHING) {
+					this.motivation -= 0.02;
+					if (this.motivation < 0) {
+						this.setState(PUB);
+					}
+				} else {
+					if (this.visible == false) {
+						// villager is in a pub or house and recovers
+						this.motivation += 0.02;
+					}
 
-				if (this.motivation > 1 && this.state != TALKING) {
-					this.setState(FISHER);
-					this.setVisible(true);
-				} else if (this.motivation > 0.4 && this.state == PUB) {
-					this.setState(SLEEPING);
-					this.setVisible(true);
-					System.out.println(this.motivation);
+					if (this.motivation > 1) {
+						this.setState(FISHER);
+						this.setVisible(true);
+					} else if (this.motivation > 0.4 && this.state == PUB) {
+						this.setState(SLEEPING);
+						this.setVisible(true);
+					}
 				}
 			}
 
