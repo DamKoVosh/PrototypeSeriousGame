@@ -25,3 +25,9 @@ Title:
 Wie kommt man in die Mine
 Text:
 Tut mir leid die ist derzeit geschlossen.
+
+Title:
+Erzähl mir was übers Fischen
+Text:
+Nun beim Fischen muss man auf drei Sachen achten.
+Dünger, Angel und Geduld.

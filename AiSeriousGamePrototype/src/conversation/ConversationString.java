@@ -50,4 +50,8 @@ public class ConversationString {
 	public void setClicked(boolean clicked) {
 		this.clicked = clicked;
 	}
+
+	public String getTitle() {
+		return title;
+	}
 }

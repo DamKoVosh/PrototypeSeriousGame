@@ -15,9 +15,13 @@ import player.Player;
 public class ConversationManager {
 	
 	private ArrayList<ConversationString> conversation;
-	//private Player player;
+	private Player player;
 	private final int Y_POS = 135;
 	private final int LINE_HEIGHT = 20;
+	
+	private boolean fireFighter;
+	private boolean fisher;
+	private boolean villageFriend;
 	
 	
 	private static ConversationManager instance;
@@ -31,12 +35,26 @@ public class ConversationManager {
 	
 	ConversationManager() {
 		conversation = new ArrayList<>();
+		fireFighter = false;
+		fisher = false;
+		villageFriend = false;
 	}
 	
 	public void handleClick(int x, int y) {
 		for (int i = 0; i < conversation.size(); i++) {
 			if (y > Y_POS + LINE_HEIGHT * i + LINE_HEIGHT && y < Y_POS + LINE_HEIGHT * i + 2*LINE_HEIGHT) {
 				conversation.get(i).handleClick(x, y);
+				if (!fireFighter && conversation.get(i).getTitle().equals("Wie Löscht man ein Haus?")) {
+					this.fireFighter = true;
+					this.conversation.remove(conversation.size() - 1);
+					this.loadConversation("FireFight");
+					this.conversation.add(new ExitString("Bis später.", player));
+				} else if (!fisher && conversation.get(i).getTitle().equals("Erzähl mir was übers Fischen")) {
+					this.fisher = true;
+					this.conversation.remove(conversation.size() - 1);
+					this.loadConversation("Fishing");
+					this.conversation.add(new ExitString("Bis später.", player));
+				}
 			} else {
 				conversation.get(i).setClicked(false);
 			}
@@ -54,10 +72,16 @@ public class ConversationManager {
 	}
 	
 	public void initConversation(String name, Player player) {
-		//this.player = player;
+		this.player = player;
 		conversation.clear();
 		conversation.add(new ConversationString(name));
-		loadConversation();
+		loadConversation("Leon");
+		if (fisher) {
+			this.loadConversation("Fishing");
+		}
+		if (fireFighter) {
+			this.loadConversation("FireFight");
+		}
 		conversation.add(new ExitString("Bis später.", player));
 	}
 	
@@ -86,11 +110,11 @@ public class ConversationManager {
 		}
 	}
 	
-	private void loadConversation() {
+	private void loadConversation(String fileName) {
 		FileReader fstream = null;
 		BufferedReader in = null;
 		try {
-			fstream = new FileReader("conversation/Leon.txt");
+			fstream = new FileReader("conversation/" + fileName + ".txt");
 			in = new BufferedReader(fstream);
 		} catch (IOException e) {}
 		try {
@@ -114,8 +138,30 @@ public class ConversationManager {
 				}	
 			}
 			in.close();			
-		} catch (IOException e) {
-			
-		}
+		} catch (IOException e) {}
+	}
+
+	public boolean isFireFighter() {
+		return fireFighter;
+	}
+
+	public void setFireFighter(boolean fireFighter) {
+		this.fireFighter = fireFighter;
+	}
+
+	public boolean isFisher() {
+		return fisher;
+	}
+
+	public void setFisher(boolean fisher) {
+		this.fisher = fisher;
+	}
+
+	public boolean isVillageFriend() {
+		return villageFriend;
+	}
+
+	public void setVillageFriend(boolean villageFriend) {
+		this.villageFriend = villageFriend;
 	}
 }

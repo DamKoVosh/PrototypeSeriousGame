@@ -1,5 +1,6 @@
 package events;
 
+import conversation.ConversationManager;
 import items.Item;
 import player.Player;
 
@@ -12,7 +13,7 @@ private boolean searched;
 	
 	@Override
 	public void activateEvent(Player player) {
-		if (!searched && !player.isVillager()) {
+		if (!searched && ConversationManager.getInstance().isFisher() && !player.isVillager()) {
 			searched = true;
 			player.getInventar().addItem(new Item("feuerzeug"));
 		}
