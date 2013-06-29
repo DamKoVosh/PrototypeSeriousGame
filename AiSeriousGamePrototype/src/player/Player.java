@@ -26,6 +26,8 @@ public class Player extends DrawAbleObject{
 	public static final int DOWN = 3;
 
 	private boolean talking;
+	private int talked;
+	private int mouseClicked;
 
 	public Player(int x, int y) {
 		super(y + 75);
@@ -180,5 +182,26 @@ public class Player extends DrawAbleObject{
 
 	public Inventar getInventar() {
 		return inventar;
+	}
+
+	public void increaseTalked() {
+		this.talked ++;
+		
+	}
+
+	public int getTalked() {
+		return this.talked;
+	}
+
+	public void increaseMouseClick() {
+		this.setMouseClicked(this.getMouseClicked() + 1);
+	}
+
+	public int getMouseClicked() {
+		return mouseClicked;
+	}
+
+	private void setMouseClicked(int mouseClicked) {
+		this.mouseClicked = mouseClicked;
 	}
 }

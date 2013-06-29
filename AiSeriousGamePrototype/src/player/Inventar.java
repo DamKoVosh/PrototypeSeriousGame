@@ -24,4 +24,8 @@ public class Inventar {
 			items.get(i).render(container, graphics, i);
 		}
 	}
+
+	public int size() {
+		return items.size();
+	}
 }

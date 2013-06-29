@@ -23,6 +23,8 @@ public class ConversationManager {
 	private boolean fisher;
 	private boolean villageFriend;
 	
+	private int threadsRead;
+	
 	
 	private static ConversationManager instance;
 	
@@ -43,6 +45,9 @@ public class ConversationManager {
 	public void handleClick(int x, int y) {
 		for (int i = 0; i < conversation.size(); i++) {
 			if (y > Y_POS + LINE_HEIGHT * i + LINE_HEIGHT && y < Y_POS + LINE_HEIGHT * i + 2*LINE_HEIGHT) {
+				if (!conversation.get(i).isClicked()) {
+					this.setThreadsRead(this.getThreadsRead() + 1);
+				}
 				conversation.get(i).handleClick(x, y);
 				if (!fireFighter && conversation.get(i).getTitle().equals("Wie Löscht man ein Haus?")) {
 					this.fireFighter = true;
@@ -163,5 +168,13 @@ public class ConversationManager {
 
 	public void setVillageFriend(boolean villageFriend) {
 		this.villageFriend = villageFriend;
+	}
+
+	public int getThreadsRead() {
+		return threadsRead;
+	}
+
+	private void setThreadsRead(int threadsRead) {
+		this.threadsRead = threadsRead;
 	}
 }

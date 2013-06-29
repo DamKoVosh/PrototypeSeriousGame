@@ -20,11 +20,14 @@ import entity.BasicEntity;
 import entity.EntityHandler;
 import events.Event;
 import events.TalkEvent;
+import godKI.DecissionTree;
 
 public class Prototype extends BasicGame {
 	private Image background;
 	private EntityHandler entitys;
 	private Player player;
+	private DecissionTree god;
+	
 	private Villager talkPartner;
 	private ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
@@ -77,6 +80,7 @@ public class Prototype extends BasicGame {
 			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager));
 			villagers.get(i).setName(names[i]);
 		}
+		god = new DecissionTree(player);
 	}
 
 	@Override
@@ -88,6 +92,7 @@ public class Prototype extends BasicGame {
 				villager.update();
 			}
 		}
+		god.update();
 	}
 	
 	@Override
@@ -149,6 +154,7 @@ public class Prototype extends BasicGame {
 	
 	@Override
 	public void mouseClicked(int button, int x, int y, int count) {
+		player.increaseMouseClick();
 		if (!player.getTalking()) {
 			if (button == 0) {
 				if (talkPartner != null) {

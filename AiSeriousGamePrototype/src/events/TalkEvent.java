@@ -12,6 +12,7 @@ public class TalkEvent extends Event {
 		System.out.println("starting to Talk to " + talkPartner.getName());
 		ConversationManager.getInstance().initConversation(talkPartner.getName(), player);
 		player.setTalking(true);
+		player.increaseTalked();
 	}
 	
 	public void setPartner(Villager villager) {
