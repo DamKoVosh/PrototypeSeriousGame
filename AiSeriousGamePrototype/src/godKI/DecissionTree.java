@@ -1,7 +1,9 @@
 package godKI;
 
+import main.Prototype;
 import conversation.ConversationManager;
 import player.Player;
+import player.Villager;
 
 public class DecissionTree {
 	private long lastMoveUpdate;
@@ -52,8 +54,11 @@ public class DecissionTree {
 		System.out.println("new Content!!");
 	}
 
-	private void setFire() {
+	public void setFire() {
 		fireSet = true;
 		System.out.println("FIRE!!");
+		for (Villager villager : Prototype.getVillagers()) {
+			villager.setState(Villager.FIRE);
+		}
 	}
 }

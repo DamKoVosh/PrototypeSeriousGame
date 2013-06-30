@@ -29,7 +29,7 @@ public class Prototype extends BasicGame {
 	private DecissionTree god;
 	
 	private Villager talkPartner;
-	private ArrayList<Villager> villagers = new ArrayList<Villager>();
+	private static ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
 	private boolean showNavMash;
 	
@@ -131,6 +131,11 @@ public class Prototype extends BasicGame {
 			case 208:
 				player.setDirection(Player.DOWN);
 				break;
+			case 38:
+				this.god.setFire();
+				break;
+			default:
+				System.out.println(key);
 		}
 	}
 	
@@ -200,5 +205,9 @@ public class Prototype extends BasicGame {
 
 	public static int getWidth() {
 		return Prototype.WIDTH;
+	}
+
+	public static ArrayList<Villager> getVillagers() {
+		return Prototype.villagers;
 	}
 }

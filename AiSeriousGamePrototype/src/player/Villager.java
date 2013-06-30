@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import events.EmptyEvent;
 import events.EnterHouse;
 import events.FisherArrives;
 
@@ -125,9 +126,9 @@ public class Villager extends Player {
 	}
 
 	public void computeState() {
-		long now = System.currentTimeMillis();
-		if (now - this.lastMoveUpdate >= 500) {
-			if (this.state != FIRE && this.state != TALKING) {
+		if (this.state != FIRE && this.state != TALKING) {
+			long now = System.currentTimeMillis();
+			if (now - this.lastMoveUpdate >= 500) {
 				if (this.state == FISHING) {
 					this.motivation -= 0.02;
 					if (this.motivation < 0) {
@@ -147,9 +148,9 @@ public class Villager extends Player {
 						this.setVisible(true);
 					}
 				}
-			}
 
-			this.lastMoveUpdate = now;
+				this.lastMoveUpdate = now;
+			}
 		}
 	}
 
@@ -161,26 +162,58 @@ public class Villager extends Player {
 		return this.state;
 	}
 
+	/**
+	 * Call this method to change a villager's state.
+	 * @param state
+	 */
 	public void setState(int state) {
-		if (state == TALKING) {
-			saveState = this.state;
-		}
-		this.state = state;
-
 		switch(state) {
 		case FISHER:
+			this.state = state;
 			fishing();
 			break;
 		case PUB:
+			this.state = state;
 			pub();
 			break;
 		case SLEEPING:
+			this.state = state;
 			sleeping();
 			break;
+		case FIRE:
+			this.saveState = this.state;
+			this.state = state;
+			fightFire();
+			break;
 		case TALKING:
+			this.saveState = this.state;
+			this.state = state;
 			talking();
 			break;
+		case FISHING:
+			this.state = state;
 		}
+	}
+
+	private void fightFire() {
+		int x, y;
+		this.navManager.deleteMovement(this);
+		this.setVisible(true);
+		if (this.getFootY() < 320) {
+			// from north
+			x = 580;
+			y = 390;
+		} else if (this.getFootY() < 550) {
+			// from west
+			x = 530;
+			y = 430;
+		} else {
+			// from south
+			x = 580;
+			y = 480;
+		}
+
+		this.navManager.addMovement(this, new EmptyEvent(), x, y);
 	}
 
 	public void resetState() {
