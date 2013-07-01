@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 
 import events.EmptyEvent;
 import events.EnterHouse;
+import events.FireFighting;
 import events.FisherArrives;
 
 public class Villager extends Player {
@@ -37,8 +38,8 @@ public class Villager extends Player {
 	public static final int INSIDE = 5;
 	public static final int FIRE = 6;
 
-	public Villager(int x, int y, NavigationManager navManager) {
-		super(x, y);
+	public Villager(int x, int y, Prototype prototype, NavigationManager navManager) {
+		super(x, y, prototype);
 		this.fisher = new Fisher();
 
 		this.motivation = Math.random();
@@ -213,7 +214,7 @@ public class Villager extends Player {
 			y = 480;
 		}
 
-		this.navManager.addMovement(this, new EmptyEvent(), x, y);
+		this.navManager.addMovement(this, new FireFighting(), x, y);
 	}
 
 	public void resetState() {

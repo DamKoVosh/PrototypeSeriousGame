@@ -19,6 +19,7 @@ public class Player extends DrawAbleObject{
 	public long lastSpriteUpdate;
 	public long lastMoveUpdate;
 	private Inventar inventar;
+	private Prototype prototype;
 
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
@@ -29,7 +30,7 @@ public class Player extends DrawAbleObject{
 	private int talked;
 	private int mouseClicked;
 
-	public Player(int x, int y) {
+	public Player(int x, int y, Prototype prototype) {
 		super(y + 75);
 		try {
 			this.image = new Image("img/player.png");
@@ -43,6 +44,7 @@ public class Player extends DrawAbleObject{
 
 		spritePos = 0;
 
+		this.prototype = prototype;
 		lastSpriteUpdate = System.currentTimeMillis();
 		lastMoveUpdate = System.currentTimeMillis();
 	}
@@ -203,5 +205,9 @@ public class Player extends DrawAbleObject{
 
 	private void setMouseClicked(int mouseClicked) {
 		this.mouseClicked = mouseClicked;
+	}
+
+	public Prototype getPrototype() {
+		return this.prototype;
 	}
 }

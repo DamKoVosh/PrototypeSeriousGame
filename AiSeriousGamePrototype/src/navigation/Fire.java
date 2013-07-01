@@ -15,7 +15,11 @@ public class Fire {
 
 	}
 
-	public static void registerFireFighter(Player player) {
-		
+	public void registerFireFighter(Player player) {
+		fireFighters.add(player);
+	}
+
+	public ArrayList<Player> getFireFighters() {
+		return this.fireFighters;
 	}
 }

@@ -1,7 +1,6 @@
 package main;
 import java.util.ArrayList;
 
-import navigation.Fire;
 import navigation.NavigationManager;
 
 import org.newdawn.slick.AppGameContainer;
@@ -11,11 +10,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import conversation.ConversationManager;
-import drawObject.DrawManager;
 import player.Inventar;
 import player.Player;
 import player.Villager;
+import conversation.ConversationManager;
+import drawObject.DrawManager;
 import entity.BasicEntity;
 import entity.EntityHandler;
 import events.Event;
@@ -72,12 +71,12 @@ public class Prototype extends BasicGame {
 		entitys = new EntityHandler(c);
 		navigationManager = new NavigationManager(entitys, WIDTH, HEIGHT);
 
-		player = new Player (500, 600);
+		player = new Player (500, 600, this);
 		player.addInventar(new Inventar());
 		
 		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};
 		for (int i = 0; i < 6; i++) {
-			villagers.add(new Villager(300 + i*10, 300 + i*10, this.navigationManager));
+			villagers.add(new Villager(300 + i*10, 300 + i*10, this, this.navigationManager));
 			villagers.get(i).setName(names[i]);
 		}
 		god = new DecissionTree(player);
@@ -209,5 +208,9 @@ public class Prototype extends BasicGame {
 
 	public static ArrayList<Villager> getVillagers() {
 		return Prototype.villagers;
+	}
+
+	public DecissionTree getGod() {
+		return this.god;
 	}
 }

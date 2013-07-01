@@ -56,17 +56,21 @@ public class DecissionTree {
 		System.out.println("new Content!!");
 	}
 
-	public void setFire() {
+	public Fire setFire() {
 		setFire(165, 299);
+
+		return this.fire;
 	}
 
-	public void setFire(int fireX, int fireY) {
-		Fire fire = new Fire(fireX, fireY);
+	public Fire setFire(int fireX, int fireY) {
+		fire = new Fire(fireX, fireY);
 		fireSet = true;
 		System.out.println("FIRE!!");
 		for (Villager villager : Prototype.getVillagers()) {
 			villager.setState(Villager.FIRE);
 		}
+
+		return this.fire;
 	}
 
 	public Fire getFire() {
