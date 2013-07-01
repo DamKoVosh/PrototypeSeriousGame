@@ -12,7 +12,6 @@ public class Fire {
 	public Fire(int fireX, int fireY) {
 		this.fireX = fireX;
 		this.fireY = fireY;
-
 	}
 
 	public void registerFireFighter(Player player) {

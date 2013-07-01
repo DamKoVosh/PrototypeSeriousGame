@@ -6,7 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import events.EmptyEvent;
 import events.EnterHouse;
 import events.FireFighting;
 import events.FisherArrives;
@@ -27,6 +26,7 @@ public class Villager extends Player {
 	private int state;
 	private int saveState;
 	private Fisher fisher;
+	private FireFighter fireFighter;
 	private boolean visible = true;
 
 	//states
@@ -37,10 +37,12 @@ public class Villager extends Player {
 	public static final int TALKING = 4;
 	public static final int INSIDE = 5;
 	public static final int FIRE = 6;
+	public static final int FIREFIGHTING = 7;
 
 	public Villager(int x, int y, Prototype prototype, NavigationManager navManager) {
 		super(x, y, prototype);
 		this.fisher = new Fisher();
+		this.fireFighter = new FireFighter();
 
 		this.motivation = Math.random();
 		this.navManager = navManager;
@@ -116,6 +118,9 @@ public class Villager extends Player {
 					super.render(container, graphics);
 				}
 				break;
+			case FIRE:
+				fireFighter.renderWalking(graphics, left, right, up, down, x, y, lastDirection);
+				break;
 			default:
 				super.render(container, graphics);
 			}
@@ -184,7 +189,7 @@ public class Villager extends Player {
 		case FIRE:
 			this.saveState = this.state;
 			this.state = state;
-			fightFire();
+			fire();
 			break;
 		case TALKING:
 			this.saveState = this.state;
@@ -193,10 +198,14 @@ public class Villager extends Player {
 			break;
 		case FISHING:
 			this.state = state;
+			break;
+		case FIREFIGHTING:
+			this.state = state;
+			break;
 		}
 	}
 
-	private void fightFire() {
+	private void fire() {
 		int x, y;
 		this.navManager.deleteMovement(this);
 		this.setVisible(true);
@@ -249,5 +258,9 @@ public class Villager extends Player {
 
 	public void setLastUpdate(long timestamp) {
 		this.lastMoveUpdate = timestamp;
+	}
+
+	public FireFighter getFireFighter() {
+		return this.fireFighter;
 	}
 }

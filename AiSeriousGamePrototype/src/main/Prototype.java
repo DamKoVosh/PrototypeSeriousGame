@@ -79,7 +79,7 @@ public class Prototype extends BasicGame {
 			villagers.add(new Villager(300 + i*10, 300 + i*10, this, this.navigationManager));
 			villagers.get(i).setName(names[i]);
 		}
-		god = new DecissionTree(player);
+		god = new DecissionTree(player, this.entitys);
 	}
 
 	@Override
