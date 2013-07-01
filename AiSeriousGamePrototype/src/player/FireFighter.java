@@ -9,11 +9,11 @@ public class FireFighter {
 	/**
 	 * Height of a tile of the fisher's sprite.
 	 */
-	private int imageHeight = 74;
+	private final int HEIGHT = 74;
 	/**
 	 * Width of a tile of the fisher's sprite.
 	 */
-	private int imageWidth = 52;
+	private final int WIDTH = 52;
 	private int spritePos = 0;
 	private long lastUpdate;
 	private boolean bucketFilled = false;
@@ -33,34 +33,34 @@ public class FireFighter {
 			if (!(left || right || up || down)) {
 				// standing
 				if (lastDirection == Player.RIGHT) {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, 3 * imageWidth, 4 * imageHeight, 4 * imageWidth, 5 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, 3 * WIDTH, 4 * HEIGHT, 4 * WIDTH, 5 * HEIGHT);
 				} else {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, 2 * imageWidth, 4 * imageHeight, 3 * imageWidth, 5 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, 2 * WIDTH, 4 * HEIGHT, 3 * WIDTH, 5 * HEIGHT);
 				}
 			} else {
 				if (lastDirection == Player.RIGHT) {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, spritePos * imageWidth, imageHeight,
-							spritePos * imageWidth + imageWidth, 2 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, spritePos * WIDTH, HEIGHT,
+							spritePos * WIDTH + WIDTH, 2 * HEIGHT);
 				} else {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, spritePos * imageWidth, 0,
-							spritePos * imageWidth + imageWidth, imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, spritePos * WIDTH, 0,
+							spritePos * WIDTH + WIDTH, HEIGHT);
 				}
 			}
 		} else {
 			if (!(left || right || up || down)) {
 				// standing
 				if (lastDirection == Player.RIGHT) {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, imageWidth, 4 * imageHeight, 2 * imageWidth, 5 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, WIDTH, 4 * HEIGHT, 2 * WIDTH, 5 * HEIGHT);
 				} else {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, 0, 4 * imageHeight, imageWidth, 5 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, 0, 4 * HEIGHT, WIDTH, 5 * HEIGHT);
 				}
 			} else {
 				if (lastDirection == Player.RIGHT) {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, spritePos * imageWidth, 2 * imageHeight,
-							spritePos * imageWidth + imageWidth, 3 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, spritePos * WIDTH, 2 * HEIGHT,
+							spritePos * WIDTH + WIDTH, 3 * HEIGHT);
 				} else {
-					graphics.drawImage(image, x, y, x + imageWidth, y + imageHeight, spritePos * imageWidth, 3 * imageHeight,
-							spritePos * imageWidth + imageWidth, 4 * imageHeight);
+					graphics.drawImage(image, x, y, x + WIDTH, y + HEIGHT, spritePos * WIDTH, 3 * HEIGHT,
+							spritePos * WIDTH + WIDTH, 4 * HEIGHT);
 				}
 			}
 		}

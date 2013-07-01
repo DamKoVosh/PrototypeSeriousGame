@@ -9,8 +9,9 @@ public class FireFighting extends Event {
 	public void activateEvent(Player player) {
 		if (player.isVillager()) {
 			Villager villager = (Villager) player;
-			villager.setState(Villager.FIREFIGHTING);
 			villager.getFireFighter().toggleBucket();
+			villager.setState(Villager.FIREFIGHTING);
+			System.out.println(villager.getName() + " has been to the well.");
 		}
 	}
 }

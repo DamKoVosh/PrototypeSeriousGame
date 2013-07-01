@@ -10,7 +10,7 @@ import navigation.NavigationManager;
 
 public class StateMachine {
 
-	NavigationManager navManager;
+	private NavigationManager navManager;
 	
 	public StateMachine (NavigationManager navManager) {
 		this.navManager = navManager;
@@ -76,8 +76,6 @@ public class StateMachine {
 	}
 
 	public void fireFighting(Villager villager) {
-		// Villager has been to the well
-		this.navManager.deleteMovement(villager);
 		this.navManager.addMovement(villager, new Extinguish(), 210, 470);
 		System.out.println(villager.getName() + " is going to fight the fire now.");
 	}

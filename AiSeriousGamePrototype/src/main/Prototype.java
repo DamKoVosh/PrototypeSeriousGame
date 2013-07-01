@@ -96,7 +96,7 @@ public class Prototype extends BasicGame {
 		}
 		god.update();
 	}
-	
+
 	@Override
 	public void keyPressed(int key, char c) {
 		switch(key) {
@@ -158,7 +158,7 @@ public class Prototype extends BasicGame {
 				break;
 		}
 	}
-	
+
 	@Override
 	public void mouseClicked(int button, int x, int y, int count) {
 		player.increaseMouseClick();
