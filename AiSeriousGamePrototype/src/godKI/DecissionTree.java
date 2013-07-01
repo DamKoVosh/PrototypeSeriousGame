@@ -1,5 +1,6 @@
 package godKI;
 
+import navigation.Fire;
 import main.Prototype;
 import conversation.ConversationManager;
 import player.Player;
@@ -10,6 +11,7 @@ public class DecissionTree {
 	private Player player;
 	private ConversationManager conMan;
 	private boolean fireSet;
+	private Fire fire;
 	
 	public DecissionTree(Player player) {
 		lastMoveUpdate = System.currentTimeMillis();
@@ -55,10 +57,23 @@ public class DecissionTree {
 	}
 
 	public void setFire() {
+		setFire(165, 299);
+	}
+
+	public void setFire(int fireX, int fireY) {
+		Fire fire = new Fire(fireX, fireY);
 		fireSet = true;
 		System.out.println("FIRE!!");
 		for (Villager villager : Prototype.getVillagers()) {
 			villager.setState(Villager.FIRE);
 		}
+	}
+
+	public Fire getFire() {
+		return this.fire;
+	}
+
+	public boolean getIsBurning() {
+		return this.fireSet;
 	}
 }

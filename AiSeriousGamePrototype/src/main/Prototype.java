@@ -1,6 +1,7 @@
 package main;
 import java.util.ArrayList;
 
+import navigation.Fire;
 import navigation.NavigationManager;
 
 import org.newdawn.slick.AppGameContainer;
@@ -11,7 +12,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import conversation.ConversationManager;
-
 import drawObject.DrawManager;
 import player.Inventar;
 import player.Player;
@@ -32,7 +32,7 @@ public class Prototype extends BasicGame {
 	private static ArrayList<Villager> villagers = new ArrayList<Villager>();
 	private NavigationManager navigationManager;
 	private boolean showNavMash;
-	
+
 	private static AppGameContainer container;
 	
 	private final static int WIDTH = 1024;
