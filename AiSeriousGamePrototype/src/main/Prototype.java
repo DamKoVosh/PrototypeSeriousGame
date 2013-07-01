@@ -20,12 +20,14 @@ import entity.EntityHandler;
 import events.Event;
 import events.TalkEvent;
 import godKI.DecissionTree;
+import godKI.StateMachine;
 
 public class Prototype extends BasicGame {
 	private Image background;
 	private EntityHandler entitys;
 	private Player player;
 	private DecissionTree god;
+	private StateMachine stateMachine;
 	
 	private Villager talkPartner;
 	private static ArrayList<Villager> villagers = new ArrayList<Villager>();
@@ -73,13 +75,14 @@ public class Prototype extends BasicGame {
 
 		player = new Player (500, 600, this);
 		player.addInventar(new Inventar());
-		
+
+		god = new DecissionTree(player, this.entitys);
+		stateMachine = new StateMachine(this.navigationManager);
+
 		String[] names = {"Bernd", "Frank", "Michael", "Tina", "Leon", "Abraham"};
 		for (int i = 0; i < 6; i++) {
-			villagers.add(new Villager(300 + i*10, 300 + i*10, this, this.navigationManager));
-			villagers.get(i).setName(names[i]);
+			villagers.add(new Villager(names[i], 300 + i*10, 300 + i*10, this, this.stateMachine));
 		}
-		god = new DecissionTree(player, this.entitys);
 	}
 
 	@Override

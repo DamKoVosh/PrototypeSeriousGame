@@ -1,22 +1,16 @@
 package player;
+import godKI.StateMachine;
 import main.Prototype;
-import navigation.NavigationManager;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import events.EnterHouse;
-import events.FireFighting;
-import events.FisherArrives;
-
 public class Villager extends Player {
-	// movement
-	private NavigationManager navManager;
 
 	// agent
 	/**
-	 * motivation determines the villager's state.
+	 * motivation determines the villager's initial state.
 	 */
 	private double motivation;
 	/**
@@ -28,6 +22,7 @@ public class Villager extends Player {
 	private Fisher fisher;
 	private FireFighter fireFighter;
 	private boolean visible = true;
+	private StateMachine states;
 
 	//states
 	public static final int FISHER = 0;
@@ -39,62 +34,21 @@ public class Villager extends Player {
 	public static final int FIRE = 6;
 	public static final int FIREFIGHTING = 7;
 
-	public Villager(int x, int y, Prototype prototype, NavigationManager navManager) {
+	public Villager(String name, int x, int y, Prototype prototype, StateMachine states) {
 		super(x, y, prototype);
+		this.name = name;
+
 		this.fisher = new Fisher();
 		this.fireFighter = new FireFighter();
 
 		this.motivation = Math.random();
-		this.navManager = navManager;
+		this.states = states;
 
 		saveState = -1;
 
 		// Determine the initial state
 		state = (int) Math.floor(motivation * 3);
 		setState(state);
-	}
-
-	private void talking() {
-		this.navManager.deleteMovement(this);
-	}
-
-	/**
-	 * State fishing. Changes the agent's appearance and makes him move to the shore.
-	 */
-	private void fishing() {
-		// go to fishing spot
-		int x = 65;
-		int y = (int) (Math.random() * Prototype.getHeight());
-		this.navManager.addMovement(this, new FisherArrives(), x, y);
-	}
-
-	private void pub() {
-		// go to the pub
-		int x = 775;
-		int y = 255;
-		this.navManager.addMovement(this, new EnterHouse(), x, y);
-	}
-
-	/**
-	 * The villager goes to one of the houses and enters them.
-	 */
-	private void sleeping() {
-		int x, y;
-		if (Math.random() < 0.5) {
-			// dark roof
-			x = 220;
-			y = 470;
-		} else {
-			// red roof
-			x = 370;
-			y = 290;
-		}
-
-		this.navManager.addMovement(this, new EnterHouse(), x, y);
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getName() {
@@ -118,6 +72,7 @@ public class Villager extends Player {
 					super.render(container, graphics);
 				}
 				break;
+			case FIREFIGHTING:
 			case FIRE:
 				fireFighter.renderWalking(graphics, left, right, up, down, x, y, lastDirection);
 				break;
@@ -125,18 +80,18 @@ public class Villager extends Player {
 				super.render(container, graphics);
 			}
 		} else {
-			renderInside(graphics);
+			graphics.drawImage(image, x, y, x, y, 1, 1, 1, 1);
 		}
 
 		computeState();
 	}
 
-	public void computeState() {
-		if (this.state != FIRE && this.state != TALKING) {
+	private void computeState() {
+		if (this.state != FIRE && this.state != FIREFIGHTING && this.state != TALKING) {
 			long now = System.currentTimeMillis();
 			if (now - this.lastMoveUpdate >= 500) {
 				if (this.state == FISHING) {
-					this.motivation -= 0.02;
+					this.motivation -= 0.02 - (int) (Math.random() * 0.01);
 					if (this.motivation < 0) {
 						this.setState(PUB);
 					}
@@ -160,10 +115,6 @@ public class Villager extends Player {
 		}
 	}
 
-	public void renderInside(Graphics graphics) {
-		graphics.drawImage(image, x, y, x, y, 1, 1, 1, 1);
-	}
-
 	public int getState() {
 		return this.state;
 	}
@@ -176,54 +127,34 @@ public class Villager extends Player {
 		switch(state) {
 		case FISHER:
 			this.state = state;
-			fishing();
+			states.fishing(this);
 			break;
 		case PUB:
 			this.state = state;
-			pub();
+			states.pub(this);
 			break;
 		case SLEEPING:
 			this.state = state;
-			sleeping();
+			states.sleeping(this);
 			break;
 		case FIRE:
 			this.saveState = this.state;
 			this.state = state;
-			fire();
+			states.fire(this);
 			break;
 		case TALKING:
 			this.saveState = this.state;
 			this.state = state;
-			talking();
+			states.talking(this);
 			break;
 		case FISHING:
 			this.state = state;
 			break;
 		case FIREFIGHTING:
 			this.state = state;
+			states.fireFighting(this);
 			break;
 		}
-	}
-
-	private void fire() {
-		int x, y;
-		this.navManager.deleteMovement(this);
-		this.setVisible(true);
-		if (this.getFootY() < 320) {
-			// from north
-			x = 580;
-			y = 390;
-		} else if (this.getFootY() < 550) {
-			// from west
-			x = 530;
-			y = 430;
-		} else {
-			// from south
-			x = 580;
-			y = 480;
-		}
-
-		this.navManager.addMovement(this, new FireFighting(), x, y);
 	}
 
 	public void resetState() {
@@ -250,14 +181,6 @@ public class Villager extends Player {
 	@Override
 	public boolean isVillager() {
 		return true;
-	}
-
-	public long getLastUpdate() {
-		return this.lastMoveUpdate;
-	}
-
-	public void setLastUpdate(long timestamp) {
-		this.lastMoveUpdate = timestamp;
 	}
 
 	public FireFighter getFireFighter() {

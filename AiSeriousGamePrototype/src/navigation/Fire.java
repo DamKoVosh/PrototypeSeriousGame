@@ -7,6 +7,7 @@ import player.Player;
 public class Fire {
 
 	int fireX, fireY;
+	int strength = (int) (Math.random() * 100);
 	ArrayList<Player> fireFighters = new ArrayList<Player>();
 
 	public Fire(int fireX, int fireY) {
@@ -14,11 +15,11 @@ public class Fire {
 		this.fireY = fireY;
 	}
 
-	public void registerFireFighter(Player player) {
-		fireFighters.add(player);
+	public int getFireX() {
+		return this.fireX;
 	}
 
-	public ArrayList<Player> getFireFighters() {
-		return this.fireFighters;
+	public int getFireY() {
+		return this.fireY;
 	}
 }

@@ -9,7 +9,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
 import events.EmptyEvent;
-import events.Event;
 import events.FishingEvent;
 import events.HouseEvent;
 import events.RuineEvent;
